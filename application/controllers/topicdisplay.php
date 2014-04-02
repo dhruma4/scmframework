@@ -15,7 +15,7 @@ class Topicdisplay extends CI_Controller{
 		$count=0;
 		$topic=array();
 		$arrayerror=array();
-		$comments=array();
+		$comments=array(); 
 
         $topic=$this->input->post('topic');
         

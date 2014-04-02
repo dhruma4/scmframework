@@ -239,21 +239,30 @@ class Authorization extends CI_Controller{
 							echo "verified user";
 							$status="send_email";
 							$subject="Reset Password";
-							$message="Reset your password here";
+							$time=time();
+							
+							$hash=$sess_username.$time;
+							$d['hash']=$hash;
+							$d['email']=$to;
+							$message=$this->load->view('message/message_template',$d,true);
+
+							$this->auth_model->insert_hash($hash,$time,$sess_username);
 
 							send_custom_mail($to,$subject,$message);
 							$this->session->unset_userdata('username');
 							$this->session->unset_userdata('role');
+
+							$this->auth_model->clear_hash($hash,$time,$sess_username);
 						} else{
 							$arrayerror['answer']="Answer entered, doesnot match.Please try again";
 						}
 					}
 				}
-
-				
+	
 			}
 		}
 		// $d['ques']=$ques;
+		//$d['hash']=$hash;
 		$d['verify']=$verify;
 		$d['status']=$status;
 		$d['errors']=$arrayerror;
@@ -261,6 +270,66 @@ class Authorization extends CI_Controller{
 		$d['questions']=$questions;
 
 		$this->load->view('authorization/forgotpassword_view',$d);
+	}
+
+	public function reset_password(){
+		$_hash=$this->input->get('hash');
+		$_email=$this->input->get('email');
+		$hash=array();
+		
+		$hash=$this->auth_model->fetch_hash($_hash);
+		$role=$hash[0]['role'];
+		if($role=="student"){
+			$email=$this->auth_model->fetch_email_student($_email);
+		}else{
+			$email=$this->auth_model->fetch_email($_email);
+		}	
+		
+		$arrayerror=array();
+		$prefilled=array();
+		if($_hash==$hash AND $_email==$email){
+			$pass=$this->input->post('pass');
+			$confirm_pass=$this->input->post('confirm_pass');
+
+			
+			
+			$prefilled['pass']=$pass;
+			$prefilled['confirm_pass']=$confirm_pass;
+
+				if($_SERVER["REQUEST_METHOD"]=="POST") {
+					$is_valid=true;
+
+					if(empty($pass)){
+						$is_valid=false;
+						$arrayerror['pass']="Password is required";
+					}
+					elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$pass)){
+						$is_valid=false;
+						$arrayerror['pass']="Password must contain 8 characters including digits with no special character";
+					}
+					if(empty($confirm_pass)){
+						$is_valid=false;
+						$arrayerror['confirm_pass']="Password must be confirmed";
+					}elseif($pass!=$confirm_pass){
+						$is_valid=false;
+						$arrayerror['confirm_pass']="Passwords do not match.Please try again.";
+					}
+
+					if($is_valid==true){
+						$password=md5(trim($pass));
+						$data=array('username'=>$password);
+						$this->auth_model->reset_pass($data,$hash[0]['username']);
+					}
+
+				}
+		}else{
+			echo "The link you are looking for has expired.";
+		}
+		$data['data_entered']=$prefilled;
+		$data['errors']=$arrayerror;
+
+		$this->load->view('authorization/resetpassword_view',$data);
+
 	}
 }
 ?>

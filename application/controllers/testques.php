@@ -25,7 +25,7 @@ class Testques extends CI_Controller{
         $is_valid=true;
         $classtest_id=$this->input->get('id');
         
-
+        
         if(empty($classtest_id)){
                                     $is_valid=false;
                                     $arrayerror['test']="Class test must be selected";

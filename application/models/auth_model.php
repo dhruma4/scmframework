@@ -6,7 +6,7 @@ class Auth_model extends CI_Model
 		$this->load->helper('form');
 		$this->load->database();
 	}
-
+	//login function
 	public function get_student_loginexists($loginid){
 		$this->db->select('*');
 		$this->db->where('login_id',$loginid);
@@ -30,6 +30,28 @@ class Auth_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function security_check($sess_username){
+		$this->db->select('*');
+		$this->db->where('username',$sess_username);
+		$query=$this->db->get('login_master');
+
+		return $query->result_array();
+	}
+
+	public function get_sec_questions(){
+		$this->db->select('*');
+		$query=$this->db->get('security_ques_master');
+
+		return $query->result_array();
+	}
+	public function insert_sec_ques($sess_username,$security_question,$security_answer){
+		$this->db->set('security_ques',$security_question);
+		$this->db->set('security_ans',$security_answer);
+		$this->db->where('username',$sess_username);
+		$this->db->update('login_master');
+	}
+
+	//forgot password 
 	public function fetch_ques($loginid){
 		$this->db->select('*');
 		$this->db->where('username',$loginid);

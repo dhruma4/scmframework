@@ -10,102 +10,158 @@ class Authorization extends CI_Controller{
 		$this->load->helper('myemail');
 		$this->load->library('session');
 	}
-
+ 
 	public function login(){
 		$status="";
+		$security=array();
+		$sec_questions=array();
 		$username=$this->input->post('username');
     	$password=$this->input->post('password');
     	$role=$this->input->post('role');
+    	$sec_ques=$this->input->post('sec_ques');
+    	$sec_ans=$this->input->post('sec_ans');
+
+    	
+
 
     	$prefilled=array();
     	$prefilled['username']=$username;
     	$prefilled['password']=$password;
     	$prefilled['role']=$role;
+    	$prefilled['sec_ques']=$sec_ques;
+    	$prefilled['sec_ans']=$sec_ans;
+
+    	$sess_username=$this->session->userdata('username');
+    	$sess_role=$this->session->userdata('role');
 
     	$arrayerror=array();
+    	
+
+
         if ($_SERVER["REQUEST_METHOD"]=="POST")
-         {
-			$arraydata=array();
-
-			$is_valid=true;
-			if(empty($_POST["role"])){
-				$is_valid=false;
-				$arrayerror['role']="Role is required";
-			}
-
-			if(empty($_POST["username"])){
-				$is_valid=false;
-				$arrayerror['username']="Username is required";
-			}
-
-			elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$_POST["username"])){
-				$is_valid=false;
-				$arrayerror['username']="Login id/Username must contain 8 characters including digits with no special character";
-			}
-
-			if(empty($_POST["password"])){
-				$is_valid=false;
-				$arrayerror['password']="Password is required";
-			}
-
-			elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$_POST["password"])){
-				$is_valid=false;
-				$arrayerror['password']="Password must contain 8 characters including digits with no special character";
-			}
-
-				if($_POST["role"]=="admin" OR $_POST["role"]=="branch moderator" OR $_POST["role"]=="faculty"){
-				//echo "checking in faculty master";
-				$loginid=$_POST["username"];
-                $resultlogin=array();
-                $resultlogin= $this->auth_model->get_loginexists($loginid);
-              
-					if(count($resultlogin)<= 0){
-						$is_valid=false;
-						$arrayerror['username']="Username entered doesnot exists.Please enter correct username";
-						echo "";
-					}
+        {
+         	//$data=array('username'=>$sess_username,
+			//			'role'=>$sess_role);
+         	//if (empty($sess_username) OR empty($sess_role)) {
+			
+				$is_valid=true;
+				if(empty($role)){
+					$is_valid=false;
+					$arrayerror['role']="Role is required";
 				}
-				elseif($_POST["role"]=="student"){
-					//echo "checking in student master";
-					$loginid=$_POST["username"];
-                	$resultlogin=array();
-                	$resultlogin= $this->auth_model->get_student_loginexists($loginid);
-              
-					if(count($resultlogin)<= 0){
-						$is_valid=false;
-						$arrayerror['username']="Username entered doesnot exists.Please enter correct username";
-						echo "";
-					}
+
+				if(empty($username)){
+					$is_valid=false;
+					$arrayerror['username']="Username is required";
 				}
+
+				elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$username)){
+					$is_valid=false;
+					$arrayerror['username']="Login id/Username must contain 8 characters including digits with no special character";
+				}
+
+				if(empty($password)){
+					$is_valid=false;
+					$arrayerror['password']="Password is required";
+				}
+
+				elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$password)){
+					$is_valid=false;
+					$arrayerror['password']="Password must contain 8 characters including digits with no special character";
+				}
+
+					if($role=="admin" OR $role=="branch moderator" OR $role=="faculty"){
+						$loginid=$_POST["username"];
+		                $resultlogin=array();
+		                $resultlogin= $this->auth_model->get_loginexists($loginid);
+	              
+						if(count($resultlogin)<= 0){
+							$is_valid=false;
+							$arrayerror['username']="Username entered doesnot exists.Please enter correct username";
+							echo "";
+						}
+					}
+					elseif($role=="student"){
+						
+						$loginid=$_POST["username"];
+	                	$resultlogin=array();
+	                	$resultlogin= $this->auth_model->get_student_loginexists($loginid);
+	              
+						if(count($resultlogin)<= 0){
+							$is_valid=false;
+							$arrayerror['username']="Username entered doesnot exists.Please enter correct username";
+							echo "";
+						}
+					}
 
 					if($is_valid==true){
-						$pass=md5(trim($_POST["password"]));
-						//echo "valid user";
-						$array=array('username'=>$_POST["username"],
+						$pass=md5(trim($password));
+						
+						$array=array('username'=>$username,
 									'password'=>$pass,
-									'role'=>$_POST["role"]);
+									'role'=>$role);
 						$verify=$this->auth_model->verify_user($array);
+						echo '<pre/>';
+						print_r($verify);
 
 						if(count($verify)>0){
-							//echo "verified user";
-							$status="verified";
-						}
-						else{
-							$arrayerror['password']="Username and/or password entered, doesnot match.Please try again";
-							}
-					}
-					
-		}
+							
+							$security=$this->auth_model->security_check($sess_username);
+						
+							if(empty($security[0]['security_ques']) AND empty($security[0]['security_ans'])){
+								$status="ask_security_ques";
+								$sec_questions=$this->auth_model->get_sec_questions();
+								if($_SERVER["REQUEST_METHOD"]=="POST"){
 
+								if(isset($_POST['sec-ques-submit']) AND !empty($_POST['sec-ques-submit'])){
+										$is_valid=true;
+										if(empty($sec_ques)){
+											$is_valid=false;
+											$arrayerror['sec_ques']="Security question must be selected";
+										}
+										if(empty($sec_ans)){
+											$is_valid=false;
+											$arrayerror['sec_ans']="Security answer is required";
+										}
+
+										if($is_valid==true){
+											echo "is valid true";
+											$security_question=$sec_ques;
+											$security_answer=$sec_ans;
+											echo '<pre/>';
+											print_r($sec_ques);
+											echo " sec ques & ans   ";
+											$this->auth_model->insert_sec_ques($sess_username,$security_question,$security_answer);
+											$status="sec_ques_inserted";
+										}
+									}else{
+											$arrayerror['details']="Details must be filled in order to proceed";
+										}
+								}
+							}
+							else{
+									$status="verified";
+							}
+						}else{
+										$arrayerror['password']="Username and/or password entered, doesnot match.Please try again";
+							}
+					}	
+		}
+									
+		$this->session->unset_userdata();
+		
+		$data['questions']=$sec_questions;
 		$data['data_entered']=$prefilled;
 		$data['errors']=$arrayerror;
 		$data['status']=$status;
 
 		$this->load->view('authorization/login_view',$data);
+	
 	}
 
 	public function forgot_password(){
 		$status="";
+		$active="";
 		$username=$this->input->post('username');
 		$role=$this->input->post('role');
 		$answer=$this->input->post('answer');
@@ -118,8 +174,6 @@ class Authorization extends CI_Controller{
 
 
 		$ques=array();
-		//$roleentered=array();
-		//$usernameentered=array();
 		$questions=array();
 		$recipient=array();
 		$verify=array();
@@ -194,12 +248,14 @@ class Authorization extends CI_Controller{
 					$this->session->set_userdata($newdata);
 					echo "ques";
 					$status="security_question";
-					$d['ques'] = $questions;
-					/*$questions=$this->auth_model->fetch_ques($loginid);	
-					echo '<pre/>';
+					
+					//$questions=$this->auth_model->fetch_ques($loginid);
+					$d['ques'] = $questions;	
+					/*echo '<pre/>';
 					print_r($questions);*/
 				}		
 			} else {
+				$active="else";
 				$status="security_question";
 				$d['ques']=$this->auth_model->fetch_ques_sess($data);
 								
@@ -263,6 +319,7 @@ class Authorization extends CI_Controller{
 		}
 		// $d['ques']=$ques;
 		//$d['hash']=$hash;
+		$d['active']=$active;
 		$d['verify']=$verify;
 		$d['status']=$status;
 		$d['errors']=$arrayerror;

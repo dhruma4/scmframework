@@ -14,22 +14,28 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 ?>
 
 	<form action="" method="POST">
-		<h3>Select the Quiz to answer questions:</h3>
-		<label><span class="error">'*' are required field.</span></label><br><br>
-
-	
-	<label><span class="error">*</span>Select the Quiz:</label>
-
-	      	<select id="quiz" name="quiz" value="<?php echo $data_entered['quiz']?>">
-			      <option value=""<?php if(empty($data_entered['quiz'])) echo 'selected';?>>Select your quiz</option>
+		<table style="width:600px">
+			<tr>
+				<td colspan=2 align="center"><h3>Select the Quiz to answer questions:</h3></td>
+			</tr>
+			<tr>
+				<td><label><span class="error">'*' are required field.</span></label></td>
+			</tr>
+			<tr>
+				<td><label><span class="error">*</span>Select the Quiz:</label><td>
+				<td><select id="quiz" name="quiz" value="<?php echo $data_entered['quiz']?>">
+			      	<option value=""<?php if(empty($data_entered['quiz'])) echo 'selected';?>>Select your quiz</option>
 			      	<?php foreach ($quizzes as $quiz):?>
-			      <option value="<?php echo $quiz['quiz_id']?>" <?php if($quiz['quiz_id']==$data_entered['quiz']) echo 'selected';?>><?php echo $quiz['quiz_name']?></option>
-			      	<?php endforeach ?><br>
-	  	  	</select>
-
-			      <?php if(isset($errors['quiz'])){ ?>
-			      <p><span class="error"><?php echo $errors['quiz'] ?></span></p><br>
-<?php } }?> <br> 
+			      	<option value="<?php echo $quiz['quiz_id']?>" <?php if($quiz['quiz_id']==$data_entered['quiz']) echo 'selected';?>><?php echo $quiz['quiz_name']?></option>
+			      	<?php endforeach ?>
+	  	  			</select>
+	  	  		</td>
+	  	  		<td><?php if(isset($errors['quiz'])){ ?>
+			      	<p><span class="error"><?php echo $errors['quiz'] ?></span></p>
+					<?php } }?> 
+				</td>
+			</tr>
+		</table>
 					
 			      <?php if($status=="quiz_answer") { ?>
 				    <form action="" method="POST">

@@ -54,7 +54,12 @@
 <table style="width:600px">
 	<tr>
 		<td><label>Security question:</label></td>
+		<?php if($active=="else"){?>
 		<td><?php echo $ques[0]['security_ques'];?></td>
+		<?php } ?>
+		<?php if($active==""){?>
+		<td><?php echo $ques[0]['security_ques'];?></td>
+		<?php } ?>
 	</tr>
 	<tr>
 		<td><label>Answer:</label></td>

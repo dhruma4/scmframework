@@ -10,7 +10,7 @@
 <body>
 <?php if($status=="" OR $status=="error") {?>
 <form action="" method="POST">
-    <table style="width:600px">
+    <table style="width:600px" align="center">
         <tr>
             <td colspan=2 align="center"><h3>SCM Login</h3></td>
         </tr>
@@ -46,16 +46,16 @@
             </td>
         </tr>
         <tr>
-            <td colspan=2 align="center"><input type="submit" value="Log in" name="login">&nbsp &nbsp<a href="<?php echo site_url()."";?>">Forgot password?</a></td>
+            <td colspan=2 align="center"><input type="submit" value="login" name="log_in">&nbsp &nbsp<a href="<?php echo site_url()."";?>">Forgot password?</a></td>
         </tr> 
     </table>       
 </form>
 <?php } ?>
 <?php if($status=="ask_security_ques"){?>
 <form action="" method="POST">
-    <table style="width:1000px">
+    <table style="width:1000px" align="center">
         <tr>
-            <td colspan=2 align="center"><label>Select a security question for security purpose:</label></td>
+            <td colspan=2 align="center"><h3>Select a security question for security purpose:</h3></td>
         </tr>
         <tr>
             <td><label><span class="error">* </span>Security question:</label></td>
@@ -64,14 +64,14 @@
             <td><select id="sec_ques" name="sec_ques" value="<?php echo $data_entered['sec_ques']?>">
                     <option value=""<?php if(empty($data_entered['sec_ques'])) echo 'selected';?>>Select your question</option>
                     <?php foreach ($questions as $question):?>
-                    <option value="<?php echo $question['sec_ques_id']?>" <?php if($question['sec_ques_id']==$data_entered['sec_ques']) echo 'selected';?>><?php echo $question['security_ques']?></option>
+                    <option value="<?php echo $question['security_ques']?>" <?php if($question['sec_ques_id']==$data_entered['sec_ques']) echo 'selected';?>><?php echo $question['security_ques']?></option>
                     <?php endforeach ?>
             </td>
             <td><?php if(isset($errors['sec_ques'])){ ?>
                     <p><span class="error"><?php echo $errors['sec_ques'] ?></span></p>
                     <?php } ?>
             </td>
-        </tr>
+        </tr> 
         <tr>
             <td><label><span class="error">* </span>Security answer:</label></td>
         </tr>
@@ -90,10 +90,10 @@
 </form>
 <?php } ?>
 <?php if($status=="sec_ques_inserted"){?>
-<h3>You have successfuly completed the security step.</h3>
+<h3 align="center">You have successfuly completed the security step.</h3>
 <?php }?>
 <?php if($status=="verified"){ ?>
-<h3> Verified user </h3>
+<h3 align="center"> Verified user </h3>
 <?php } ?>
 </body>
 </html>

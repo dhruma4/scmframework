@@ -12,7 +12,7 @@
 <?php if($status=="" OR $status=="error"){ ?>
 
 	<form action="" method="POST">
-        <table style="width:700px">
+        <table style="width:700px" align="center">
             <tr>
                 <td colspan=2 align="center"><h3>Select the Quiz to upload questions:</h3></td>
             </tr>
@@ -37,7 +37,7 @@
       
       <?php if($status=="ques_upload") { ?>
     <form action="" method="POST">
-        <table style="width:1200px">
+        <table style="width:1200px" align="center">
             <tr>
                 <td colspan=3 align="center"><h2>Upload question for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h2></td>
             </tr>

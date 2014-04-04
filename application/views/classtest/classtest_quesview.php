@@ -14,7 +14,7 @@ if($status=="" OR $status=="error"){
 ?>
 
 	<form action="" method="POST">
-		<table style="width:600px">
+		<table style="width:600px" align="center">
 			<tr>
 				<td colspan=2 align="center"><h3>Select the Test to upload questions:</h3></td>
 			</tr>
@@ -40,7 +40,7 @@ if($status=="" OR $status=="error"){
 
 	<?php if($status=="ques_upload") { ?>
     <form action="" method="POST">
-    	<table style="width:600px">
+    	<table style="width:600px" align="center">
     		<tr>
     			<td colspan=4 align="center"><h2>Upload question for <?php echo $test_fetched[0]['test_name'] ;  ?></h2></td>
     		</tr>
@@ -152,7 +152,7 @@ if($status=="" OR $status=="error"){
 
 	<?php 
 if($status=="uploaded" AND $status!= "ques_upload"){ ?>
-<h3>Question have been uploaded.</h3>
+<h3 align="center">Question have been uploaded.</h3>
 <form>
           <input type="submit" value="Go back"  name="back" id="back">&nbsp
           <input type="submit" value="Add another question"  name="add" id="add"> <br><br>

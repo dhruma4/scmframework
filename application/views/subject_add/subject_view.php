@@ -14,7 +14,7 @@
 ?>
 <form action="" method="POST">
 
-<table style="width:600px">
+<table style="width:600px" align="center">
     <tr>
         <td colspan=2 align="center"><h3> Insert subject here: </h3></td>
     </tr>
@@ -99,7 +99,7 @@ $(document).ready(function(){
 
 <?php 
 if($status=="added"){ ?>
-<h3> Subject has been added </h3>
+<h3 align="center"> Subject has been added </h3>
 <?php } ?>
 
 </body>

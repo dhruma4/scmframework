@@ -13,7 +13,7 @@
   if($status=="" OR $status=="error"){
   ?>
 	<form action="" method="POST">
-        <table style="width:600px">
+        <table style="width:600px" align="center">
             <tr>
                 <td colspan=2 align="center"><h3>Upload the Class test here:</h3></td>
             </tr>
@@ -101,7 +101,7 @@ $(document).ready(function(){
 <?php 
 if ($status=="success") {
 ?>
-<h3>Test has been uploaded. </h3>
+<h3 align="center">Test has been uploaded. </h3>
 <?php } ?>
 </body>
 </html>

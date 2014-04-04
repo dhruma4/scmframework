@@ -13,7 +13,7 @@
 	 
 		<h2 align="center"> List of Topics:</h2>
 		<hr>
-		<table  border="2" style="width:1000px">
+		<table  border="2" style="width:1000px" align="center">
 			<tr>
 				<td><label><b>Name of Topic</b> </label></td>
 				<td><label><b>Created by </b></label></td>

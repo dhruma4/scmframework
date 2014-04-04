@@ -14,7 +14,7 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 ?>
 
 	<form action="" method="POST">
-		<table style="width:600px">
+		<table style="width:600px" align="center">
 			<tr>
 				<td colspan=2 align="center"><h3>Select the Quiz to answer questions:</h3></td>
 			</tr>
@@ -39,28 +39,40 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 					
 			      <?php if($status=="quiz_answer") { ?>
 				    <form action="" method="POST">
-				     
-				         <h2>Answer questions for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h2><br><br>
+				    	<table align="center" style="width:700px">
+				    		<tr>
+				    			<td colspan=3><h2>Answer questions for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h2></td>
+				    		</tr>
+
 
 				         <?php $i=1; ?>
 		                 <?php foreach($questions as $question):  ?>
-		             
-		                <label><?php echo $i; echo "  "; echo $question['q_text'] ?></label><br>
-		                <label><span class="error">* </span>Answer: </label>
-		                <input type="radio" name="answer_<?php echo $question['q_id'];?>" value="1"><?php echo $question['op_1'];?>
-				    	<input type="radio" name="answer_<?php echo $question['q_id'];?>" value="2"><?php echo $question['op_2'];?>
-				    	<input type="radio" name="answer_<?php echo $question['q_id'];?>" value="3"><?php echo $question['op_3'];?>
+		                 <tr>
+		                 	<td><label><?php echo $i; echo "  "; echo $question['q_text'] ?></label></td>
+		                 </tr>
+		                 <tr>
+		                 	<td><label><span class="error">* </span>Answer: </label></td>
+		                 </tr>
+		                 <tr>
+		                 	<td><input type="radio" name="answer_<?php echo $question['q_id'];?>" value="1"><?php echo $question['op_1'];?></td>
+				    		<td><input type="radio" name="answer_<?php echo $question['q_id'];?>" value="2"><?php echo $question['op_2'];?></td>
+				    		<td><input type="radio" name="answer_<?php echo $question['q_id'];?>" value="3"><?php echo $question['op_3'];?></td>
 		                    <?php $i++; ?><br><br>
 		            		
 		                     <?php endforeach ?><br><br>
-
-		                     <?php if(isset($errors['answer'])) {?>
-				   			 <p><span class="error"><?php echo $errors['answer'] ?></span></p>
-				   			 <?php } ?><br>
-
-		                     <input type="submit" value="Submit Quiz" id="submit_quiz"><br>
-		                 </form>
-		                 <?php } ?>
+		                </tr>
+		                <tr>
+		                	<td><?php if(isset($errors['answer'])) {?>
+				   			 	<p><span class="error"><?php echo $errors['answer'] ?></span></p>
+				   			 	<?php } ?>
+				   			</td>
+				   		</tr>
+				   		<tr>
+				   			<td colspan=2 align="center"><input type="submit" value="Submit Quiz" id="submit_quiz"></td>
+				   		</tr>
+				   	</table>
+		        </form>
+            <?php } ?>
 </form>
 
 

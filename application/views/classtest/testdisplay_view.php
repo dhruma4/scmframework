@@ -14,7 +14,7 @@ if($status=="" OR $status=="error"){
 ?>
 
 	<form action="" method="POST">
-		<table style="width:700px">
+		<table style="width:700px" align="center">
 			<tr>
 				<td colspan=5 align="center"><h3>Select the Test to answer questions:</h3></td>
 			</tr>
@@ -40,7 +40,7 @@ if($status=="" OR $status=="error"){
 		      
 		      <?php if($status=="test_answer") { ?>
 				    <form action="" method="POST">
-				    	<table style="width:700px">
+				    	<table style="width:700px" align="center">
 				    		<tr>
 				    			<td clolspan=5 align="center"><h2>Answer questions for <?php echo $test_fetched[0]['test_name'] ;  ?></h2></td>
 				    		</tr>
@@ -85,7 +85,7 @@ if($status=="" OR $status=="error"){
   });
   </script>
  <?php  if($status=="submit" AND $status!="" AND $status!="test_answer" AND $status!="error"){ ?>
- 	<h3>Test has been submitted.</h3>
+ 	<h3 align="center">Test has been submitted.</h3>
 <?php } ?>
 </body>
 </html>

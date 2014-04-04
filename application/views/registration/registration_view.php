@@ -22,7 +22,7 @@ if($status=="" OR $status=="error"){
     }
    */?>
     
-    <table style="width:600px">
+    <table style="width:600px" align="center">
         <tr>
             <td colspan=2 align="center"><label><span class="error">'*' are required field.</span></label></td>
         </tr>
@@ -182,7 +182,7 @@ $(document).ready(function(){
 <?php 
 if ($status=="success") {
 ?>
-<h3> Congratulations! You have registered successfully </h3>
+<h3 align="center"> Congratulations! You have registered successfully </h3>
 <?php } ?>
 </body>
 </html>

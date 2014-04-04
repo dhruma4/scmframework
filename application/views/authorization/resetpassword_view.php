@@ -8,10 +8,11 @@
 </script>
 </head>
 <body>
+<?php if($status=="" OR $status=="error"){?>
 	<form action="" method="POST">
-		<table style="width:600px">
+		<table style="width:600px" align="center">
 			<tr>
-				<td align="center">Enter a new password to reset</td>
+				<td align="center"><h3>Enter a new password to reset</h3></td>
 			</tr>
 			<tr>
 				<td align="center"><label>New password:</label></td>
@@ -31,5 +32,9 @@
 
 		</table>
 	</form>
+<?php }?>
+<?php if($status=="password_reset"){?>
+<h3>Your password has been reset successfully.</h3>
+<?php }?>
 </body>
 </html>

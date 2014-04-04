@@ -14,7 +14,7 @@
 <form action="" method="POST">
 
 	<h2 align="center">Find your account:</h2>
-	<table style="width:600 px">
+	<table style="width:600 px" align="center">
 		<tr>
 			<td>Select your role:</td>
 			<td><select name="role" value="<?php echo $data_entered['role']?>" id="role">
@@ -51,7 +51,7 @@
 <?php } ?>
 <?php if($status=="security_question"){?>
 <form action="" method="POST">
-<table style="width:600px">
+<table style="width:600px" align="center">
 	<tr>
 		<td><label>Security question:</label></td>
 		<?php if($active=="else"){?>
@@ -76,7 +76,7 @@
 </form>
 <?php }?>
 <?php if($status=="send_email"){?>
-<h3>Check your email for password reset.</h3>
+<h3 align="center">Check your email for password reset.</h3>
 <?php }?>
 </body>
 </html>

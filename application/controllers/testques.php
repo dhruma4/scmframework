@@ -17,7 +17,7 @@ class Testques extends CI_Controller{
             $this->logged_in_details=$this->session->all_userdata();
         }
     }
- 
+  
     public function select_test()
     {
     if($this->logged_in==true){

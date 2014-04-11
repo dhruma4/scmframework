@@ -9,7 +9,7 @@ class Topicdisplay extends CI_Controller{
 		$this->load->helper('form');
 	}
 
-	public function select_topic()
+	/*public function select_topic()
 	{
 		$status="";
 		$count=0;
@@ -35,7 +35,9 @@ class Topicdisplay extends CI_Controller{
                 $is_valid=false;
                 $arrayerror['topic']="No such topic exists";
         	}
-        }
+        }*/
+}
+        ?>
 
 
 

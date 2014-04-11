@@ -54,7 +54,7 @@ a:hover
             </div>
             <div id="menu">
                 <ul>
-                    <li class="current_page_item"><a href="#">Homepage</a></li>
+                    <li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
                     <li><a href='<?php echo site_url('manage/list_of_faculty')?>'>Faculty</a></li>
                     <li><a href='<?php echo site_url('manage/list_of_student')?>'>Student</a></li>
                     <li><a href='<?php echo site_url('manage/list_of_assignment')?>'>Assignments</a></li>
@@ -63,6 +63,8 @@ a:hover
                     <li><a href='<?php echo site_url('manage/list_of_subject')?>'>Subjects</a></li> 
                     <li><a href='<?php echo site_url('manage/quiz_result')?>'>Quiz results</a></li> 
                     <li><a href='<?php echo site_url('manage/test_result')?>'>Classtest results</a></li>
+                    <li><a href='<?php echo site_url('manage/disc_topics');?>'>Discussion topics</a></li>
+                    <li><a href='<?php echo site_url('manage/comments');?>'>Comments</a></li>
 
                 </ul>
             </div>

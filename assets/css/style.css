@@ -71,27 +71,7 @@ a:hover {
 	margin: 0px auto;
 	padding: 0px;
 }
-#dropdown-menu {
-position: absolute;
-top: 100%;
-left: 0;
-z-index: 1000;
-display: none;
-float: left;
-min-width: 160px;
-padding: 5px 0;
-margin: 2px 0 0;
-list-style: none;
-font-size: 14px;
-color: #FFFFFF;
-background-color: #fff; 
-border: 1px solid #ccc;
-border: 1px solid rgba(0,0,0,.15);
-border-radius: 4px;
--webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-background-clip: padding-box;
-}
+
 /* Logo */
 
 #logo {
@@ -224,6 +204,60 @@ background-clip: padding-box;
 
 #menu .current_page_item a {
 }
+#menu .dropdown {
+position: absolute;
+top: 100%;
+left: 0;
+z-index: 1000;
+display: none;
+float: left;
+min-width: 160px;
+padding: 5px 0;
+margin: 2px 0 0;
+list-style: none;
+font-size: 14px;
+color: #FFFFFF;
+background-color: #fff; 
+border: 1px solid #ccc;
+border: 1px solid rgba(0,0,0,.15);
+border-radius: 4px;
+-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+box-shadow: 0 6px 12px rgba(0,0,0,.175);
+background-clip: padding-box;
+}
+#menu .dropdown. ul{
+	float: right;
+	margin: 0;
+	padding: 50px 20px 0px 0px;
+	list-style: none;
+	line-height: normal;
+	position: absolute;
+}
+#menu .dropdown. ul li{
+	float: right;
+	margin: 0;
+	padding: 50px 20px 0px 0px;
+	list-style: none;
+	line-height: normal;
+	position: absolute;
+}
+#menu .dropdown. ul li ul{
+	float: right;
+	margin: 0;
+	padding: 50px 20px 0px 0px;
+	list-style: none;
+	line-height: normal;
+	position: absolute;
+}
+#menu .dropdown. ul li ul{
+	float: right;
+	margin: 0;
+	padding: 50px 20px 0px 0px;
+	list-style: none;
+	line-height: normal;
+	position: absolute;
+}
+
 
 /* Page */
 

@@ -1,10 +1,9 @@
-
  
-  <?php if($status=="" OR $status=="error"){ ?>
+<?php if($status=="" OR $status=="error"){ ?>
 <form action="" method="POST">
 
 	<h3 align="center"> <font color=#C16C2F>Find your account:</font></h3>
-	<table style="width:600 px" align="center">
+	<table  align="center">
 		<tr>
 			<td>Select your role:</td>
 			<td><select name="role" value="<?php echo $data_entered['role']?>" id="role">
@@ -20,21 +19,16 @@
             	<?php } ?>
 			</td>
 		</tr>
-		
 		<tr>
 			<td><label>Username:</label></td>
-
 			<td><input type="text" value="<?php echo $data_entered['username'];?>" name="username" id="username"></td>
-
 			<td><?php if(isset($errors['username'])){ ?>
       			<p><span class="error"><?php echo $errors['username'] ?></span></p>
             	<?php } ?>
             </td>
 		</tr>
-
 		<tr>
-			<td><input type="submit" value="Submit" id="submit" name="role-submit">
-			</td>
+			<td colspan=2 align="center"><input type="submit" value="Submit" id="submit" name="role-submit"></td>
 		</tr>
 	</table>
 </form>

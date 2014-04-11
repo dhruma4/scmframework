@@ -22,21 +22,26 @@
 			<div id="logo">
 				<h1><a href="#">Student <span>Component </span>Manager</a></h1>
 			</div>
-			<div id="menu">
+			<div id="menu" class="dropdown">
 				<?php if($logged_in==true) { ?>
 				<?php if($logged_in_details['role']=="student"){ ?>
-				
+					
 					<ul>
 						<li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
 						<li><a href="#">Assignment</a></li>
-						
-						<li><a href="<?php echo site_url()."/assignment_submit/submit_assignment"?>">Assignment Submit</a></li>
-						<li><a href="#">Quiz</a></li>
-						<li><a href="#"></a></li>
-						<li><a href="#">Classtest</a></li>
+							<ul>
+								<li><a href="<?php echo site_url()."/assignment_submit/submit_assignment";?>">Assignment submit</a></li>
+							</ul>
+						<li><a href="<?php echo site_url()."/testdisplay/select_test";?>">Classtest</a></li>
+						<li><a href="<?php echo site_url()."/quizdisplay/select_quiz";?>">Quiz</a></li>
 						<li><a href="#">Discussion forum</a></li>
-						<li><a href="<?php echo site_url()."/authorization/logout"?>">Logout</a></li>
+							<ul>
+								<li><a href="<?php echo site_url()."/forum/forum_create";?>">Create topic</a></li>
+								<li><a href="<?php echo site_url()."/forum/topic_list";?>">See all topics</a></li>
+							</ul>
+						<li><a href="<?php echo site_url()."/authorization/logout";?>">Logout</a></li>
 					</ul>
+				
 				</div>
 					
 				
@@ -57,9 +62,25 @@
 				<ul>
 					<li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
 					<li><a href="#">Assignment</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/assignment_upload/upload_assignment";?>">Assignment upload</a></li>
+							<li><a href="<?php echo site_url()."/assignment_upload/select_assignment";?>">Assignment question upload</a></li>
+						</ul>
 					<li><a href="#">Classtest</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/classtest/upload_test";?>">Classtest upload</li>
+							<li><a href="<?php echo site_url()."/testques/select_test";?>">Classtest question upload</li>
+						</ul>
 					<li><a href="#">Quiz</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/quiz/upload_quiz";?>">Quiz upload</a></li>
+							<li><a href="<?php echo site_url()."/quizques/select_quiz";?>">Quiz question upload</li>
+						</ul>
 					<li><a href="#">Discussion forum</a></li>
+					<ul>
+								<li><a href="<?php echo site_url()."/forum/forum_create";?>">Create topic</a></li>
+								<li><a href="<?php echo site_url()."/forum/topic_list";?>">See all topics</a></li>
+							</ul>
 					<li><a href="<?php echo site_url()."/authorization/logout";?>">Logout</a></li>
 				</ul>
 					
@@ -69,10 +90,27 @@
 				<ul>
 					<li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
 					<li><a href="#">Assignment</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/assignment_upload/upload_assignment";?>">Assignment upload</a></li>
+							<li><a href="<?php echo site_url()."/assignment_upload/select_assignment";?>">Assignment question upload</a></li>
+						</ul>
 					<li><a href="#">Classtest</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/classtest/upload_test";?>">Classtest upload</li>
+							<li><a href="<?php echo site_url()."/testques/select_test";?>">Classtest question upload</li>
+						</ul>
 					<li><a href="#">Quiz</a></li>
-					<li><a href="#">Add Subject</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/quiz/upload_quiz";?>">Quiz upload</a></li>
+							<li><a href="<?php echo site_url()."/quizques/select_quiz";?>">Quiz question upload</li>
+						</ul>
 					<li><a href="#">Discussion forum</a></li>
+						<ul>
+							<li><a href="<?php echo site_url()."/forum/forum_create";?>">Create topic</a></li>
+							<li><a href="<?php echo site_url()."/forum/topic_list";?>">See all topics</a></li>
+						</ul>
+					<li><a href="<?php echo site_url()."/subject_add/insertsubject";?>">Add Subject</a></li>
+					
 					<li><a href="<?php echo site_url()."/authorization/logout";?>">Logout</a></li>
 				</ul>
 					

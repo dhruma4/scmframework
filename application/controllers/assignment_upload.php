@@ -18,7 +18,7 @@ class Assignment_upload extends CI_Controller{
         }
  
 	}
-
+ 
 	public function upload_assignment()
 	{
          if ($this->logged_in==true)

@@ -1,7 +1,7 @@
 
 <?php if($status=="" OR $status=="error"){ ?>
 <form action="" method="POST">
-    <table align="center" style="width:700px">
+    <table align="center" >
         
         <tr>
             <td><label><span class="error">*</span>Topic:</label></td>

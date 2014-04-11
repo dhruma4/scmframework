@@ -3,10 +3,10 @@
   if($status=="" OR $status=="error"){
   ?>
 	<form action="" method="POST">
-        <table style="width:600px" align="center">
-            <tr>
-                <td colspan=2 align="center"><h3>Upload the Class test here:</h3></td>
-            </tr>
+        <table  align="center">
+            <?php /*<tr>
+                <td colspan=2 align="center"><h4>Upload the Class test here:</h4></td>
+            </tr> */?>
             <tr>
                 <td><label><span class="error">'*' are required field.</span></label></td>
             </tr>
@@ -91,5 +91,5 @@ $(document).ready(function(){
 <?php 
 if ($status=="success") {
 ?>
-<h3 align="center">Test has been uploaded. </h3>
+<h4 align="center">Test has been uploaded. </h4>
 <?php } ?>

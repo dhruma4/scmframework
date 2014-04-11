@@ -29,39 +29,37 @@ class Quizdisplay extends CI_Controller{
         
         $prefilled=array();
         $prefilled['quiz']=$quiz;
-
+        $marks=0;
         $is_valid=true;
         $quiz_id=$this->input->get('id');
 
-         if(empty($quiz_id)){
-            $is_valid=false;
-            $arrayerror['quiz']="Quiz must be selected";
-        }
+	         if(empty($quiz_id)){
+	            $is_valid=false;
+	            $arrayerror['quiz']="Quiz must be selected";
+	        }
 
-        else{
-            $quiz=$this->quizques_model->get_quiz($quiz_id);
+	        else{
+	            $quiz=$this->quizques_model->get_quiz($quiz_id);
 
-            if(count($quiz)<=0){
-                $is_valid=false;
-                $arrayerror['quiz']="No such quiz exists";
-            }
-         }
+	            if(count($quiz)<=0){
+	                $is_valid=false;
+	                $arrayerror['quiz']="No such quiz exists";
+	            }
+	         }
 
         if($is_valid==true) {
 			$status="quiz_answer";
-
-
 			$questions=$this->quizques_model->get_questions($quiz_id);
 
           	if(count($questions)<=0){
                 $arrayerror['question']="No questions are uploaded";
             }
-            	
+            if ($_SERVER["REQUEST_METHOD"]=="POST"){ 	
             foreach($questions as $question){
             	$answer=$this->input->post('answer_'.$question['q_id']);
 				$prefilled['answer_'.$question['q_id']]=$answer;
 				
-	            if ($_SERVER["REQUEST_METHOD"]=="POST"){                                                                                
+	                                                                                           
 		            if(empty($_POST['answer_'.$question['q_id']])){
 						$is_valid=false;
 						$arrayerror['answer']="Answer is required";
@@ -70,18 +68,24 @@ class Quizdisplay extends CI_Controller{
 					if($is_valid==true){
 						if($question['q_answer']==$prefilled['answer_'.$question['q_id']]){
 								$count++;
+								$marks=$count;
 						}
-
-						$data=array('quiz_id'=>$this->input->get('id'),
-									'marks'=>$count,
-									);
-						
-						$this->quizques_model->insertresult($data);
-						$status="submit";
 					}
 				}
+				if($is_valid==true){
+							$id=$this->session->userdata('login_id');
+							$data=array('quiz_id'=>$this->input->get('id'),
+										'marks'=>$marks,
+										'stu_id'=>$id,
+										);
+							
+							$this->quizques_model->insertresult($data);
+							$status="submit";
+						}
 			}
-		}
+		}		
+		
+		
 			$data['questions']=$questions;
 			$data['quiz_fetched']=$quiz;
 			$data['data_entered']=$prefilled;
@@ -110,6 +114,7 @@ class Quizdisplay extends CI_Controller{
 		}
 
 	}
+
 
 }
 ?>

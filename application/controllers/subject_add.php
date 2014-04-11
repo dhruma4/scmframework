@@ -1,17 +1,28 @@
 <?php
 class Subject_add extends CI_Controller{
-	
+    public $logged_in=false;
+    public $logged_in_details=array();
+
 	function __construct()
 	{
-		parent::__construct();
-      $this->load->model('subjectadd_model');
-      $this->load->helper('url');
-	  $this->load->helper('form');
-	}
+        parent::__construct();
+        $this->load->model('subjectadd_model');
+        $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->library('session');
+        $id=$this->session->userdata('login_id');
 
+        if(isset($id) AND !empty($id)){
+            $this->logged_in=true;
+            $this->logged_in_details=$this->session->all_userdata();
+        }
+	}
+ 
 	public function insertsubject()
 	{
-        $status="";
+    if($this->logged_in==true){
+
+    $status="";
     
     $subject=$this->input->post('subject');
     $sem=$this->input->post('sem');
@@ -71,13 +82,32 @@ class Subject_add extends CI_Controller{
           
 	}
 
-     $data['status']=$status;
-     $data['data_entered']=$prefilled;   
-	 $data['errors']=$arrayerror;
-     $data['subjects']=$this->subjectadd_model->get_subject();
-	 $data['branches']=$this->subjectadd_model->get_branch();
-	 $this->load->view('subject_add/subject_view',$data);
-     //$this->load->view('subject_add/subject_added');
+    $data['status']=$status;
+    $data['data_entered']=$prefilled;   
+    $data['errors']=$arrayerror;
+    $data['subjects']=$this->subjectadd_model->get_subject();
+    $data['branches']=$this->subjectadd_model->get_branch();
+    $data['title']="Add subject here";
+    $data['logged_in_details']=$this->logged_in_details;
+    $data['logged_in']=$this->logged_in;
+
+    $this->load->view('template/headercss.php',$data);
+    $this->load->view('template/contentcss.php',$data);
+    $this->load->view('subject_add/subject_view',$data);
+    $this->load->view('template/footercss.php',$data);
+    
+    }
+        else{
+            $msg= "You are not logged in.You must be logged in to access the function.";
+                
+                $data['title']=$msg;
+                $data['logged_in_details']=$this->logged_in_details;
+                $data['logged_in']=$this->logged_in;
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('template/footercss.php',$data);
+
+        }
 }
 }
 ?>

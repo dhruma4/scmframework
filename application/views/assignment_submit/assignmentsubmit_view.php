@@ -4,9 +4,8 @@
 if($status=="" OR $status=="error"){
   ?>
 	<form action="" method="POST" enctype="multipart/form-data">
-            <table align="center" style="width:700px">
+            <table align="center" >
                 <tr>
-                    
                     <td><label><span class="error">*</span>Assignment Name: </label></td>
                     <td><select id="assign_name" name="assign_name" value="<?php echo $data_entered['assign_name']?>">
                     <option value=""<?php if(empty($data_entered['assign_name'])) echo 'selected';?>>Select your assignment</option>

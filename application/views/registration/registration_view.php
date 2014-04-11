@@ -17,7 +17,7 @@ if($status=="" OR $status=="error"){
             </td>      
         </tr>
         <tr>
-            <td><label><span class="error">* </span>Name: </label></td>
+            <td><label><span class="error">* </span>Full Name: </label></td>
             <td><input type="text" name="name" value="<?php echo $data_entered['name']?>"></td>
             <td><?php if(isset($errors['name'])){?>
                 <p><span class="error"><?php echo $errors['name'] ?></span></p>

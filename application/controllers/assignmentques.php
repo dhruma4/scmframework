@@ -49,7 +49,7 @@ class Assignmentques extends CI_Controller{
                             if(count($questions)<=0){
                                                     $arrayerror['question']="No questions are uploaded";
                             }
-                           
+                            
                             
                     }  
                         if($is_valid==true){
@@ -106,7 +106,7 @@ class Assignmentques extends CI_Controller{
              }
     }
 
-	public function upload_ques(){
+	/*public function upload_ques(){
     if($this->logged_in==true){
 
         $status="ques_upload";
@@ -162,7 +162,7 @@ class Assignmentques extends CI_Controller{
                 $this->load->view('template/footercss.php',$data);
                
             }
-    }
+    } */
 
     
 

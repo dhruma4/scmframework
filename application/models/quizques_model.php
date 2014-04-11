@@ -39,5 +39,14 @@ class Quizques_model extends CI_Model
 		public function insertresult($data){
 			$this->db->insert('quiz_result',$data);
 		}
+		/*public function get_student(){
+			$this->db->select('');
+			$this->db->from('');
+			$this->db->join();
+			$this->db->where();
+			$query=$this->db->get();
+
+			return $query->result_array();
+		}*/
 	}
 ?> 

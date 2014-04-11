@@ -49,7 +49,8 @@ class Registration extends CI_Controller{
         $prefilled['login_id']=$login_id;
 
         $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
-            
+        $num='/^[0-9]{4}+[a-zA-Z]{4}+[0-9]{5}$/'; 
+        $name='/^[a-zA-Z ]*+[a-zA-Z]*$/'; 
             $arrayerror=array();
             if ($_SERVER["REQUEST_METHOD"]=="POST"){
                 $is_valid=true;
@@ -57,7 +58,7 @@ class Registration extends CI_Controller{
                     $is_valid=false;
                     $arrayerror['enroll']="Enrollment number is required";
                 }
-                elseif(!preg_match("/^[0-9]{12}$/", $_POST["enroll"])){
+                elseif(!preg_match($num, $_POST["enroll"])){
                     $is_valid=false;
                     $arrayerror['enroll']="Enter enrollment number properly";
                 }            
@@ -66,11 +67,11 @@ class Registration extends CI_Controller{
                     $is_valid=false;
                     $arrayerror['name']="Name is required";
                 }
-                elseif(count($_POST["name"])>20){
+                elseif(count($_POST["name"])>25){
                     $is_valid=false;
-                    $arrayerror['name']="Name must not be larger than 20 characters";
+                    $arrayerror['name']="Name must not be larger than 25 characters";
                 }
-                elseif(!preg_match("/^[A-Za-z]*$/", $_POST["name"])){
+                elseif(!preg_match($name, $_POST["name"])){
                     $is_valid=false;
                     $arrayerror['name']="Enter name properly without any special characters";      
                 } 
@@ -205,7 +206,7 @@ class Registration extends CI_Controller{
         $arrayerrorfac=array();
 
         $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
-        
+        $name='/^[a-zA-Z ]*+[a-zA-Z]*$/'; 
         if ($_SERVER["REQUEST_METHOD"]=="POST")
         {
             $isvalid=true;
@@ -214,11 +215,11 @@ class Registration extends CI_Controller{
                     $isvalid=false;
                     $arrayerrorfac['name'] = "Name is required";
             }
-                elseif(count($_POST["name"])>20){
+                elseif(count($_POST["name"])>25){
                       $isvalid=false;
-                      $arraydatafac['name']="Name must not be more than 20 characters.";
+                      $arraydatafac['name']="Name must not be more than 25 characters.";
                 }
-                elseif(!preg_match("/^[A-Za-z]*$/",$_POST['name'])){
+                elseif(!preg_match($name,$_POST['name'])){
                       $isvalid=false;
                       $arrayerrorfac['name']="Enter valid name without any special characters and digits.";
                 }

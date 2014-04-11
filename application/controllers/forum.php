@@ -63,7 +63,7 @@ class Forum extends CI_Controller{
         $this->load->view('forum/forumcreate_view',$data);
         $this->load->view('template/footercss.php',$data);
 		
-	}
+	} 
 		else{
 			$msg= "You are not logged in.You must be logged in to access the function.";
                 

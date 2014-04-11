@@ -4,10 +4,8 @@ if($status=="" OR $status=="error"){
 ?>
 
 	<form action="" method="POST">
-		<table style="width:700px" align="center">
-			<tr>
-				<td colspan=5 align="center"><h3>Select the Test to answer questions:</h3></td>
-			</tr>
+		<table align="center">
+			
 			<tr>
 				<td><label><span class="error">'*' are required field.</span></label></td>
 			</tr>
@@ -26,13 +24,11 @@ if($status=="" OR $status=="error"){
 			    </td>
 			</tr>
 		</table>
-
-		      
 		      <?php if($status=="test_answer") { ?>
 				    <form action="" method="POST">
-				    	<table style="width:700px" align="center">
+				    	<table align="center">
 				    		<tr>
-				    			<td clolspan=5 align="center"><h2>Answer questions for <?php echo $test_fetched[0]['test_name'] ;  ?></h2></td>
+				    			<td clolspan=5 align="center"><h4>Answer questions for <?php echo $test_fetched[0]['test_name'] ;  ?></h4></td>
 				    		</tr>
 				    			<?php $i=1; ?>
 		                 		<?php foreach($questions as $question):  ?>
@@ -68,14 +64,14 @@ if($status=="" OR $status=="error"){
 
     $("#test").change(function(){
         
-              alert("event fired");
+              //alert("event fired");
               window.location=location.href+ "?id=" +$("#test").val();
   
     });
   });
   </script>
  <?php  if($status=="submit" AND $status!="" AND $status!="test_answer" AND $status!="error"){ ?>
- 	<h3 align="center">Test has been submitted.</h3>
+ 	<h4>Test has been submitted.</h4>
 <?php } ?>
 
 

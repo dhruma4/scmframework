@@ -117,7 +117,7 @@ class Quizques extends CI_Controller{
         $this->load->view('template/contentcss.php',$data);
         $this->load->view('quiz/quizques_view',$data);
         $this->load->view('template/footercss.php',$data);
-    }
+    } 
         else{
                 $msg= "You are not logged in.You must be logged in to access the function.";
                 

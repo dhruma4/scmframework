@@ -20,7 +20,7 @@ class Quiz extends CI_Controller{
 
         $prefilled=array();
         $prefilled['name']=$name;
-        $prefilled['subject']=$subject;
+        $prefilled['subject']=$subject; 
         $prefilled['sem']=$sem;
 
         $arrayerror=array();

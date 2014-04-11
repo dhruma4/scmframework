@@ -4,9 +4,9 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 ?>
 
 	<form action="" method="POST">
-		<table style="width:600px" align="center">
+		<table  align="center">
 			<tr>
-				<td colspan=2 align="center"><h3>Select the Quiz to answer questions:</h3></td>
+				<td colspan=3 align="center"><h4>Select the Quiz to answer questions:</h4></td>
 			</tr>
 			<tr>
 				<td><label><span class="error">'*' are required field.</span></label></td>
@@ -31,14 +31,14 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 				    <form action="" method="POST">
 				    	<table align="center" style="width:700px">
 				    		<tr>
-				    			<td colspan=3><h2>Answer questions for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h2></td>
+				    			<td colspan=3><h4>Answer questions for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h4></td>
 				    		</tr>
 
 
 				         <?php $i=1; ?>
 		                 <?php foreach($questions as $question):  ?>
 		                 <tr>
-		                 	<td><label><?php echo $i; echo "  "; echo $question['q_text'] ?></label></td>
+		                 	<td colspan=3><label><?php echo $i; echo "  "; echo $question['q_text'] ?></label></td>
 		                 </tr>
 		                 <tr>
 		                 	<td><label><span class="error">* </span>Answer: </label></td>
@@ -73,12 +73,12 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 
     $("#quiz").change(function(){
         
-              alert("event fired");
+              //alert("event fired");
               window.location=location.href+ "?id=" +$("#quiz").val();
   
     });
   });
   </script>
  <?php  if($status=="submit" AND $status!="" AND $status!="error" AND $status!="quiz_answer"){ ?>
- 	<p>Quiz has been submitted.</p>
+ 	<h4>Quiz has been submitted.</h4>
 <?php } ?>

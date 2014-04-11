@@ -1,23 +1,8 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-
-</head>
-<body>
 <?php 
 if($status=="" OR $status=="error"){
-?>
-
-	<form action="" method="POST">
-		<table style="width:600px" align="center">
-			<tr>
-				<td colspan=2 align="center"><h3>Select the Test to upload questions:</h3></td>
-			</tr>
+?><form action="" method="POST">
+		<table align="center">
 			<tr>
 				<td><label><span class="error">'*' are required field.</span></label></td>
 			</tr>
@@ -40,9 +25,9 @@ if($status=="" OR $status=="error"){
 
 	<?php if($status=="ques_upload") { ?>
     <form action="" method="POST">
-    	<table style="width:600px" align="center">
+    	<table  align="center">
     		<tr>
-    			<td colspan=4 align="center"><h2>Upload question for <?php echo $test_fetched[0]['test_name'] ;  ?></h2></td>
+    			<td colspan=4 align="center"><h4>Upload question for <?php echo $test_fetched[0]['test_name'] ;  ?></h4></td>
     		</tr>
     		<tr>
     			<td><h4><?php echo $msg; ?></h4></td>
@@ -160,5 +145,3 @@ if($status=="uploaded" AND $status!= "ques_upload"){ ?>
 <?php } ?>
 
 
-</body>
-</html>

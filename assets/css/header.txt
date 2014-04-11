@@ -1,0 +1,8 @@
+/* Header */
+
+#header {
+	width: 940px;
+	height: 100px;
+	margin: 0px auto;
+	padding: 0px;
+}

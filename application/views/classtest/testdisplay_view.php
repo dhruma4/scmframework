@@ -1,14 +1,4 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
- 
-</head>
-<body>
 <?php 
 if($status=="" OR $status=="error"){
 ?>
@@ -87,8 +77,7 @@ if($status=="" OR $status=="error"){
  <?php  if($status=="submit" AND $status!="" AND $status!="test_answer" AND $status!="error"){ ?>
  	<h3 align="center">Test has been submitted.</h3>
 <?php } ?>
-</body>
-</html>
+
 
 
 

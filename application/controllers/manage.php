@@ -9,7 +9,7 @@ class Manage extends CI_Controller{
 	    $this->load->helper('form');
       $this->load->library('grocery_CRUD');
 	}
-
+ 
 	public function list_of_student()
     {
         $this->grocery_crud->set_table('student_master');

@@ -1,19 +1,9 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
- 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
 
-</head>
-<body>
  
   <?php if($status=="" OR $status=="error"){ ?>
 <form action="" method="POST">
 
-	<h2 align="center">Find your account:</h2>
+	<h3 align="center"> <font color=#C16C2F>Find your account:</font></h3>
 	<table style="width:600 px" align="center">
 		<tr>
 			<td>Select your role:</td>
@@ -51,7 +41,7 @@
 <?php } ?>
 <?php if($status=="security_question"){?>
 <form action="" method="POST">
-<table style="width:600px" align="center">
+<table align="center">
 	<tr>
 		<td><label>Security question:</label></td>
 		<?php if($active=="else"){?>
@@ -76,8 +66,7 @@
 </form>
 <?php }?>
 <?php if($status=="send_email"){?>
-<h3 align="center">Check your email for password reset.</h3>
+<p>Check your email for password reset.</p>
 <?php }?>
-</body>
-</html>
+
 

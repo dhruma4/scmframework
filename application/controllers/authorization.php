@@ -1,5 +1,7 @@
 <?php
 class Authorization extends CI_Controller{
+	public $logged_in=false;
+    public $logged_in_details=array();
   
 	function __construct()
 	{
@@ -9,35 +11,44 @@ class Authorization extends CI_Controller{
 		$this->load->helper('form');
 		$this->load->helper('myemail');
 		$this->load->library('session');
+		$id=$this->session->userdata('login_id');
+
+        if(isset($id) AND !empty($id)){
+            $this->logged_in=true;
+            $this->logged_in_details=$this->session->all_userdata();
+        }
 	}
- 
+ 	public function demo(){
+ 		
+ 		$data['title']="Welcome";
+ 		$this->load->view('template/headercss.php');
+ 		$this->load->view('template/contentcss.php',$data);
+ 		//$this->load->view('template/endpagecss.php');
+ 		$this->load->view('template/footercss.php');
+
+ 	}
+
 	public function login(){
 		$status="";
 		$security=array();
 		$sec_questions=array();
+		$prefilled=array();
+		$arrayerror=array();
+
 		$username=$this->input->post('username');
     	$password=$this->input->post('password');
     	$role=$this->input->post('role');
     	$sec_ques=$this->input->post('sec_ques');
     	$sec_ans=$this->input->post('sec_ans');
 
-    	
-
-
-    	$prefilled=array();
     	$prefilled['username']=$username;
     	$prefilled['password']=$password;
     	$prefilled['role']=$role;
     	$prefilled['sec_ques']=$sec_ques;
     	$prefilled['sec_ans']=$sec_ans;
 
-    	
-    	$sess_username=$this->session->userdata('username');
+ 	    $sess_username=$this->session->userdata('username');
     	$sess_role=$this->session->userdata('role');
-
-    	$arrayerror=array();
-    	
-
 
         if ($_SERVER["REQUEST_METHOD"]=="POST")
         {
@@ -72,7 +83,7 @@ class Authorization extends CI_Controller{
 						
 						$loginid=$_POST["username"];
 		                $resultlogin=array();
-		                $resultlogin= $this->auth_model->get_loginexists($loginid);
+		                $resultlogin= $this->auth_model->get_loginexists($loginid,$role);
 	              
 						if(count($resultlogin)<= 0){
 							$is_valid=false;
@@ -101,10 +112,20 @@ class Authorization extends CI_Controller{
 						$verify=$this->auth_model->verify_user($array);
 						
 						if(count($verify)>0){
+							$unique=$this->auth_model->get_id($username,$role);
+							$unique_id=$unique[0]['login_id'];
+							
 							$sess=array('username'=>$username,
-											'role'=>$role);
+											'role'=>$role,
+											'login_id'=>$unique_id);
     						$this->session->set_userdata($sess);
+    						
+    						$this->logged_in_details=$this->session->all_userdata();
+    						
 
+
+    						$this->logged_in=true;
+    						
 							$security=$this->auth_model->security_check($username);
 							
 								if(empty($security[0]['security_ques']) AND empty($security[0]['security_ans'])){
@@ -148,14 +169,20 @@ class Authorization extends CI_Controller{
 				}
 						
 			}
-
+		$data['logged_in_details']=$this->logged_in_details;
+		$data['logged_in']=$this->logged_in;
 		$data['questions']=$sec_questions;
 		$data['data_entered']=$prefilled;
 		$data['errors']=$arrayerror;
 		$data['status']=$status;
+		$data['title']="SCM Login";
 
-		$this->load->view('authorization/login_view',$data);
-	
+ 		$this->load->view('template/headercss.php',$data);
+ 		$this->load->view('template/contentcss.php',$data);
+ 		$this->load->view('authorization/login_view',$data);
+ 		
+ 		$this->load->view('template/footercss.php',$data);
+		
 	}
 
 	public function forgot_password(){
@@ -249,8 +276,7 @@ class Authorization extends CI_Controller{
 					
 					$questions=$this->auth_model->fetch_ques($loginid);
 					$d['ques'] = $questions;
-					echo '<pre/>';
-					print_r($questions);
+					
 				}		
 			} else {
 				$active="else";
@@ -274,24 +300,20 @@ class Authorization extends CI_Controller{
 						$verify=$this->auth_model->verify_ans($array);
 						if($sess_role=="student"){
 							$recipient=$this->auth_model->get_recipient_student($sess_username);
-							echo '<pre/>';
-							print_r($recipient);
+							
 							$to=$recipient[0]['stu_email'];
-							echo "to";
-	              		echo '<pre/>';
-	              		print_r($to);
+							
+	              		
 						}else
 						{
 							$recipient=$this->auth_model->get_recipient($sess_username);
 							$to=$recipient[0]['fac_email'];
-							echo "to";
-	              		echo '<pre/>';
-	              		print_r($to);
+							
 						}
 						
 						
 						if(count($verify)>0){
-							echo "verified user";
+							//echo "verified user";
 
 							$status="send_email";
 							$subject="Reset Password";
@@ -305,16 +327,11 @@ class Authorization extends CI_Controller{
 
 							$this->auth_model->insert_hash($hash,$time,$sess_username,$sess_role);
 							$key_ses=$this->auth_model->fetch_key($sess_username);
-							//echo '<pre/>';
-	              			//print_r($key_ses);
-	              			//echo "key ^";
-
+							
 							send_custom_mail($to,$subject,$message);
 							$this->session->unset_userdata('username');
 							$this->session->unset_userdata('role');
-							//$sess=array('key'=>NULL,
-							//			'time_session'=>NULL);
-							//$this->auth_model->clear_hash($sess_username,$sess);
+							
 						} else{
 							$arrayerror['answer']="Answer entered, doesnot match.Please try again";
 						}
@@ -330,8 +347,15 @@ class Authorization extends CI_Controller{
 		$d['errors']=$arrayerror;
 		$d['data_entered']=$prefilled;
 		$d['questions']=$questions;
+		$data['logged_in_details']=$this->logged_in_details;
+		$data['logged_in']=$this->logged_in;
+		$data['title']="Forgot Password";
 
-		$this->load->view('authorization/forgotpassword_view',$d);
+		$this->load->view('template/headercss.php',$data);
+ 		$this->load->view('template/contentcss.php',$data);
+ 		$this->load->view('authorization/forgotpassword_view',$d);
+ 		$this->load->view('template/footercss.php',$data);
+
 	}
 
 	public function reset_password(){
@@ -341,37 +365,37 @@ class Authorization extends CI_Controller{
 		$_role=$this->input->get('role');
 		$hash=array();
 		$user=array();
-		echo $_hash;
-		echo "hello";
-		echo $_role;
-		
-		//$hash=$this->auth_model->fetch_hash($_hash);
-		//echo '<pre/>';
-		//print_r($hash);
-		//$username=$hash[0]['username'];
-		//echo "username";
-		//echo '<pre/>';
-		//print_r($username);
-		
-			if($_role=="student"){
-				$email=$this->auth_model->fetch_email_student($_email);
+
+		if($_role=="student"){
+				$emailuser=$this->auth_model->fetch_email_student($_email);
+				$email=$emailuser[0]['stu_email'];
 			}	else{
-					$email=$this->auth_model->fetch_email($_email);
+					$emailuser=$this->auth_model->fetch_email($_email);
+					$email=$emailuser[0]['fac_email'];
 				}	
+		
+		 
+		$hash=$this->auth_model->fetch_hash($_hash,$_role);
+		
 		
 		$arrayerror=array();
 		$prefilled=array();
-		if($_hash==$hash AND $_email==$email){
-			$pass=$this->input->post('pass');
-			$confirm_pass=$this->input->post('confirm_pass');
+		
+		
+		if($_hash==$hash[0]['key'] AND $_email==$email){
 
-			$user=$this->auth_model->fetch_username($_role);
-			echo '<pre/>';
-			print_r($user);
 			
-			$prefilled['pass']=$pass;
-			$prefilled['confirm_pass']=$confirm_pass;
+			$user=$this->auth_model->fetch_username($_role,$email,$_hash);
 			
+			$username=$user[0]['username'];
+			$timesess=($user[0]['time_session'])+86400;
+			if($timesess >= time()){
+				$pass=$this->input->post('pass');
+				$confirm_pass=$this->input->post('confirm_pass');
+
+				$prefilled['pass']=$pass;
+				$prefilled['confirm_pass']=$confirm_pass;
+				
 
 				if($_SERVER["REQUEST_METHOD"]=="POST") {
 					$is_valid=true;
@@ -393,23 +417,57 @@ class Authorization extends CI_Controller{
 					}
 
 					if($is_valid==true){
-
-						//$password=md5(trim($pass));
-						//$data=array('password'=>$pass);
-						//$this->auth_model->reset_pass($data);
+						
+						$password=md5(trim($pass));
+						$data=array('password'=>$password);
+						$this->auth_model->reset_pass($username,$_role,$data);
 						$status="password_reset";
 					}
 
 				}
+
+			}else{$msg= "The password reset link has expired.Please try again.";
+                
+                $data['title']=$msg;
+                $data['logged_in_details']=$this->logged_in_details;
+                $data['logged_in']=$this->logged_in;
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('template/footercss.php',$data);
+			
+			}
+			
 		}	else{
-				echo "The link you are looking for has expired.";
+				$msg= "You are not a verified user.";
+                
+                $data['title']=$msg;
+                $data['logged_in_details']=$this->logged_in_details;
+                $data['logged_in']=$this->logged_in;
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('template/footercss.php',$data);
+				
 			}
 		$data['status']=$status;
 		$data['data_entered']=$prefilled;
 		$data['errors']=$arrayerror;
+		$data['logged_in_details']=$this->logged_in_details;
+        $data['logged_in']=$this->logged_in;
+        $data['title']="Reset your password here";
+                
+        $this->load->view('template/headercss.php',$data);
+        $this->load->view('template/contentcss.php',$data);
+        $this->load->view('authorization/resetpassword_view',$data);
+        $this->load->view('template/footercss.php',$data);
+	}
+	public function logout(){
+		if($this->logged_in==true){
 
-		$this->load->view('authorization/resetpassword_view',$data);
-
+			$this->session->unset_userdata();
+			redirect(site_url());
+		} else{
+			echo "you are not logged in";
+		}
 	}
 }
 ?>

@@ -1,21 +1,9 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
- 
-</head>
-<body>
 <?php if($status=="" OR $status=="error"){ ?>
 
 	<form action="" method="POST">
         <table style="width:700px" align="center">
-            <tr>
-                <td colspan=2 align="center"><h3>Select the Quiz to upload questions:</h3></td>
-            </tr>
+            
             <tr>
                 <td><label><span class="error">'*' are required field.</span></label></td>
             </tr>
@@ -37,15 +25,15 @@
       
       <?php if($status=="ques_upload") { ?>
     <form action="" method="POST">
-        <table style="width:1200px" align="center">
+        <table align="center">
             <tr>
-                <td colspan=3 align="center"><h2>Upload question for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h2></td>
+                <td colspan=3 align="center"><h4>Upload question for <?php echo $quiz_fetched[0]['quiz_name'] ;  ?></h4></td>
             </tr>
             <tr>
                 <td><h4><?php echo $msg; ?></h4></td>
             </tr>
             <tr>
-                <td align="center"><label><b>Already uploaded questions:</b></label></td>
+                <td colspan=2 align="center"><label><b>Already uploaded questions:</b></label></td>
             </tr>
             <tr>
                     <?php $i=1; ?>
@@ -63,10 +51,12 @@
                 </td>
             </tr>
             <tr>
-                <td><label><span class="error">* </span>New question: </label></td>
+                <td colspan=5 align="left"><label><span class="error">* </span>New question: </label></td>
             </tr>
             <tr>
-                <td colspan=2 align="left"><textarea name="ques" id="ques" rows="3" cols="50"></textarea></td>
+                <td colspan=5 align="left"><textarea name="ques" id="ques" rows="3" cols="50"></textarea></td>
+            </tr>
+            <tr>
                 <td><?php if(isset($errors['ques'])) {?>
                     <p><span class="error"><?php echo $errors['ques'] ?></span></p>
                     <?php }  ?>
@@ -74,6 +64,8 @@
             </tr>
             <tr>
                 <td><label><span class="error">* </span>Option 1: </label></td>
+            </tr>
+            <tr>
                 <td><input type="text" name="op1" id="op1"></td>
                 <td><?php if(isset($errors['op1'])) {?>
                     <p><span class="error"><?php echo $errors['op1'] ?></span></p>
@@ -82,6 +74,8 @@
             </tr>
             <tr>
                 <td><label><span class="error">* </span>Option 2: </label></td>
+            </tr>
+            <tr>
                 <td><input type="text" name="op2" id="op2"></td>
                 <td><?php if(isset($errors['op2'])) {?>
                     <p><span class="error"><?php echo $errors['op2'] ?></span></p>
@@ -90,6 +84,8 @@
             </tr>
             <tr>
                 <td><label><span class="error">* </span>Option 3: </label></td>
+            </tr>
+            <tr>
                 <td><input type="text" name="op3" id="op3"></td>
                 <td><?php if(isset($errors['op3'])) {?>
                     <p><span class="error"><?php echo $errors['op3'] ?></span></p>
@@ -101,6 +97,8 @@
                 <td><input type="radio" name="answer" value="1">Option 1</td>
                 <td><input type="radio" name="answer" value="2">Option 2</td>
                 <td><input type="radio" name="answer" value="3">Option 3</td>
+            </tr>
+            <tr>
                 <td><?php if(isset($errors['answer'])) {?>
                     <p><span class="error"><?php echo $errors['answer'] ?></span></p>
                     <?php } ?>
@@ -123,5 +121,3 @@
     });
   });
   </script>
-</body>
-</html>

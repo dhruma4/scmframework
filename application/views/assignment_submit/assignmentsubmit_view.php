@@ -1,21 +1,20 @@
-<html>
-<head>
-	<style>
-	.error{color:red;}
-	</style>
-</head>
-<body>
+
       <?php 
+      if($logged_in==true){
 if($status=="" OR $status=="error"){
   ?>
 	<form action="" method="POST" enctype="multipart/form-data">
             <table align="center" style="width:700px">
                 <tr>
-                    <td colspan=2 align="center"><h3>Please submit your assignment here.</h3></td>
-                </tr>
-                <tr>
+                    
                     <td><label><span class="error">*</span>Assignment Name: </label></td>
-                    <td><input type="text" name="assign_name" value="<?php echo $data_entered['assign_name']?>"></td>
+                    <td><select id="assign_name" name="assign_name" value="<?php echo $data_entered['assign_name']?>">
+                    <option value=""<?php if(empty($data_entered['assign_name'])) echo 'selected';?>>Select your assignment</option>
+                    <?php foreach ($assignments as $assignment):?>
+                    <option value="<?php echo $assignment['assign_id']?>" <?php if($assignment['assign_id']==$data_entered['assign_name']) echo 'selected';?>><?php echo $assignment['assign_name']?></option>
+                    <?php endforeach ?>
+                    </td> 
+                    
                     <td><?php if(isset($errors['assign_name'])){?>
                         <label><span class="error"><p><?php echo $errors['assign_name'] ?></p></span>
                         <?php } ?>
@@ -41,7 +40,4 @@ if ($status=="uploaded") {
 ?>
 <h3 align="center"> Assignmnet uploaded. </h3>
 <?php } ?>
-
-</body>
-
-</html>
+<?php }?>

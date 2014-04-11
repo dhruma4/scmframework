@@ -4,6 +4,6 @@
 </head>
 <body>
 	<p>The reset password link expires in 24 hours.So make sure you do it before that.</p>
-	<a href="<?php echo site_url()."/authorization/reset_password?hash=".$hash."?email=".$email."?role=".$role ;?>">Reset password here.</a>
+	<a href="<?php echo site_url()."/authorization/reset_password?hash=".$hash."&email=".$email."&role=".$role ;?>">Reset password here.</a>
 </body>
 </html>

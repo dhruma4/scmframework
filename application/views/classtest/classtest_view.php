@@ -1,14 +1,4 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-
-</head>
-<body>
   <?php 
   if($status=="" OR $status=="error"){
   ?>
@@ -103,5 +93,3 @@ if ($status=="success") {
 ?>
 <h3 align="center">Test has been uploaded. </h3>
 <?php } ?>
-</body>
-</html>

@@ -1,0 +1,32 @@
+/* Footer */
+
+#footer {
+	width: 940px;
+	margin: 0px auto;
+	padding: 20px 0px;
+	background: #3D3630;
+	color: #949085;
+}
+
+#footer p {
+	margin: 0;
+	line-height: normal;
+	letter-spacing: 2px;
+	text-align: center;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'Arvo', serif;
+	font-weight: normal;
+	font-size: 10px;
+}
+
+#footer a {
+	color: #949085;
+}
+
+#banner {
+	width: 940px;
+	margin: 0px auto;
+	height: 150px;
+}

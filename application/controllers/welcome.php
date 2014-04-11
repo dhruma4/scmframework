@@ -19,7 +19,44 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$msg= "Welcome to Student Component Manager";
+                $page='homepage';
+                $data['page']=$page;
+                $data['title']=$msg;
+                $data['logged_in']=false;
+                
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('welcome_message',$data);
+                $this->load->view('template/footercss.php',$data);
+            
+				
+	}
+	public function about(){
+				
+				$data['title']="";
+				$data['logged_in']=false;
+                //$data['logged_in_details']=$this->logged_in_details;
+                //$data['logged_in']=$this->logged_in;
+
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('scm_common/about_view',$data);
+                $this->load->view('template/footercss.php',$data);
+            
+		
+	}
+	public function contact(){
+				$data['title']="";
+				$data['logged_in']=false;
+               // $data['logged_in_details']=$this->logged_in_details;
+                //$data['logged_in']=$this->logged_in;
+
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('scm_common/contact_view',$data);
+                $this->load->view('template/footercss.php',$data);
+
 	}
 }
 

@@ -1,19 +1,8 @@
-<html>
-<head>
-<style>
- .error {color:red;}
-</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-</head>
-<body>
 <?php if($status=="" OR $status=="error") {?>
 <form action="" method="POST">
-    <table style="width:600px" align="center">
-        <tr>
-            <td colspan=2 align="center"><h3>SCM Login</h3></td>
-        </tr>
+    <table style="width:592px" align="center">
+        
         <tr>
             <td><label><span class="error">* </span>Select your role:</label></td>
             <td><select name="role" id="role" value="<?php echo $data_entered['role']?>">
@@ -46,14 +35,15 @@
             </td>
         </tr>
         <tr>
-            <td colspan=2 align="center"><input type="submit" value="login" name="log_in">&nbsp &nbsp<a href="<?php echo site_url()."";?>">Forgot password?</a></td>
+            <td colspan=2 align="center"><input type="submit" value="login" name="log_in">&nbsp &nbsp<a href="<?php echo site_url()."/authorization/forgot_password";?>">Forgot password?</a></td>
         </tr> 
     </table>       
 </form>
 <?php } ?>
+<?php if($logged_in==true){?>
 <?php if($status=="ask_security_ques"){?>
 <form action="" method="POST">
-    <table style="width:1000px" align="center">
+    <table  align="center">
         <tr>
             <td colspan=2 align="center"><h3>Select a security question for security purpose:</h3></td>
         </tr>
@@ -89,11 +79,10 @@
     </table>
 </form>
 <?php } ?>
+<?php } ?>
 <?php if($status=="sec_ques_inserted"){?>
-<h3 align="center">You have successfuly completed the security step.</h3>
+<p>You have successfuly completed the security step.</p>
 <?php }?>
 <?php if($status=="verified"){ ?>
-<h3 align="center"> Verified user </h3>
+<p> Verified user </p>
 <?php } ?>
-</body>
-</html>

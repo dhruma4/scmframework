@@ -1,14 +1,4 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-
-</head>
-<body>
 <?php 
 if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answer"){
 ?>
@@ -90,7 +80,5 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
   });
   </script>
  <?php  if($status=="submit" AND $status!="" AND $status!="error" AND $status!="quiz_answer"){ ?>
- 	<h3>Quiz has been submitted.</h3>
+ 	<p>Quiz has been submitted.</p>
 <?php } ?>
-</body>
-</html>

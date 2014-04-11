@@ -1,27 +1,9 @@
-<html>
-<head>
-<style>
-.error {color:red;}
-</style>
- 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
 
-</head>
-<body>
- 
   <?php 
 if($status=="" OR $status=="error"){
   ?>
 	<form action="" method="POST">
-	<p><h2>Welcome for registration.</h2></p><br>
-  <?php /*  
-  if((count($errors))>0){
-    echo "Please fill up the following";
-    echo "";
-    }
-   */?>
-    
+	 
     <table style="width:600px" align="center">
         <tr>
             <td colspan=2 align="center"><label><span class="error">'*' are required field.</span></label></td>
@@ -184,5 +166,3 @@ if ($status=="success") {
 ?>
 <h3 align="center"> Congratulations! You have registered successfully </h3>
 <?php } ?>
-</body>
-</html>

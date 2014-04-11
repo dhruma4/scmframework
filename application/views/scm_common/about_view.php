@@ -1,0 +1,1 @@
+<p>This is <strong>Student Component Manager </strong>where students can upload their assignments, take up a classtest and quiz.Students can also post their comments on discussion board, for interactive purposes with faculties and students of the college. </p> 

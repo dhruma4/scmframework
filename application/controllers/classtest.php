@@ -1,5 +1,7 @@
 <?php
 class Classtest extends CI_Controller{
+  $this->logged_in=false;
+  $this->logged_in_details=array();
   
 	function __construct()
 	{
@@ -7,6 +9,7 @@ class Classtest extends CI_Controller{
       $this->load->model('classtest_model');
       $this->load->helper('url');
 	    $this->load->helper('form');
+      $this->load->library('session');
       //$this->load->library('calendar');
      // echo $this->calendar->generate();
 	}

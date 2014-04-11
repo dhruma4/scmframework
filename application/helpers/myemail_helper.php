@@ -12,7 +12,7 @@
 		//$config['ssl']=TRUE;
 		//$config['charset'] = 'utf-8';
 		//$config['wordwrap'] = TRUE;
-		$config['mailtype']='html';
+		$config['mailtype']='html'; 
 		//$config['validate']=TRUE;
 		//$config['priority']=3;
 		

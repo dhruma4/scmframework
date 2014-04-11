@@ -1,16 +1,24 @@
 <?php
 class Quizdisplay extends CI_Controller{
-  
+  	public $logged_in=false;
+  	public $logged_in_details=array();
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('quizques_model');
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->library('session');
+        $id=$this->session->userdata('login_id');
+ 
+        if(isset($id) AND !empty($id)){
+            $this->logged_in=true;
+            $this->logged_in_details=$this->session->all_userdata();
+        }
 	 }
 
-	 public function select_quiz()
-	{
+	public function select_quiz(){
+	if($this->logged_in==true){
 		$status="";
 		$count=0; 
 		$quizzes=array();
@@ -80,8 +88,26 @@ class Quizdisplay extends CI_Controller{
 			$data['quizzes']=$this->quizques_model->get_quizzes();
 			$data['errors']=$arrayerror;
 			$data['status']=$status;
-			$this->load->view('quiz/quizdisplay_view',$data);
+			$data['logged_in_details']=$this->logged_in_details;
+        	$data['logged_in']=$this->logged_in;
+        	$data['title']="";
 
+        	$this->load->view('template/headercss.php',$data);
+	        $this->load->view('template/contentcss.php',$data);
+	        $this->load->view('quiz/quizdisplay_view',$data);
+	        $this->load->view('template/footercss.php',$data);
+			
+	}
+		else{
+				$msg= "You are not logged in.You must be logged in to access the function.";
+                
+                $data['title']=$msg;
+                $data['logged_in_details']=$this->logged_in_details;
+                $data['logged_in']=$this->logged_in;
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('template/footercss.php',$data);
+		}
 
 	}
 

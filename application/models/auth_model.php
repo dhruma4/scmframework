@@ -13,13 +13,22 @@ class Auth_model extends CI_Model
 		$query=$this->db->get('student_master');
 
 		return $query->result_array();	
-	}
-	public function get_loginexists($loginid){
+	} 
+	public function get_loginexists($loginid,$role){
 		$this->db->select('*');
-		$this->db->where('login_id',$loginid);
-		$query=$this->db->get('faculty_master');
+		$this->db->where('username',$loginid);
+		$this->db->where('role',$role);
+		$query=$this->db->get('login_master');
 
 		return $query->result_array();	
+	}
+	public function get_id($username,$role){
+		$this->db->select('login_id');
+		$this->db->where('role',$role);
+		$this->db->where('username',$username);
+		$query=$this->db->get('login_master');
+
+		return $query->result_array();
 	}
 
 	public function verify_user($array){
@@ -98,8 +107,10 @@ class Auth_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function reset_pass($data){
+	public function reset_pass($username,$_role,$data){
 		//$this->db->where('username',$sess_username);
+		$this->db->where('username',$username);
+		$this->db->where('role',$_role);
 		$this->db->update('login_master',$data);
 	}
 	public function insert_hash($hash,$time,$sess_username,$sess_role){
@@ -109,12 +120,14 @@ class Auth_model extends CI_Model
 		$this->db->where('role',$sess_role);
 		$this->db->update('login_master');
 	}
-	public function fetch_hash($_hash){
+	public function fetch_hash($_hash,$_role){
 		$this->db->select('*');
 		$this->db->where('key',$_hash);
-		$query=$this->db->get('login_master');
+		$this->db->where('role',$_role);
+		$query=$this->db->get('login_master'); 
 
 		return $query->result_array();
+		echo $this->db->last_query();
 	}
 	public function clear_hash($sess_username,$sess){
 		//$this->db->set('key',"");
@@ -123,7 +136,7 @@ class Auth_model extends CI_Model
 		$this->db->update('login_master',$sess);
 	}
 	public function fetch_email_student($_email){
-		$this->db->select('*');
+		$this->db->select('stu_email');
 		$this->db->where('stu_email',$_email);
 		$query=$this->db->get('student_master');
 
@@ -131,34 +144,39 @@ class Auth_model extends CI_Model
 	}
 
 	public function fetch_email($_email){
-		$this->db->select('*');
+		$this->db->select('fac_email');
 		$this->db->where('fac_email',$_email);
 		$query=$this->db->get('faculty_master');
 
 		return $query->result_array();
 	}
 
-	public function fetch_username($_role){
+	public function fetch_username($_role,$email,$_hash){
 		if($_role=="student"){
-		$this->db->select('login_master.username,
-						login_master.role,
-						login_master.key,
-						login_master.time_session
-						student_master.stu_email');
-		$this->db->from('login_master');
-		$this->db->join('student_master','login_master.username=student_master.login_id');
-		$query=$this->db->get();
+			$this->db->select('l.username,
+				l.role,
+				l.key,
+				l.time_session,
+				s.stu_email'
+			);  
+			$this->db->from('login_master as l');
+			$this->db->join('student_master as s','l.username=s.login_id');
+			$this->db->where('s.stu_email',$email);
+			$this->db->where('l.key',$_hash);
+			$query=$this->db->get();
+
+		} else {
+			$this->db->select('l.username,
+						l.role,
+						l.key,
+						l.time_session
+						f.fac_email');
+			$this->db->from('login_master as l');
+			$this->db->join('faculty_master as f','l.username=f.login_id');
+			$this->db->where('f.fac_email',$email);
+			$this->db->where('l.key',$_hash);
+			$query=$this->db->get();
 		}
-			else{
-				$this->db->select('login_master.username,
-						login_master.role,
-						login_master.key,
-						login_master.time_session
-						faculty_master.fac_email');
-		$this->db->from('login_master');
-		$this->db->join('faculty_master','login_master.username=faculty_master.login_id');
-		$query=$this->db->get();
-			}
 
 		return $query->result_array();
 	}

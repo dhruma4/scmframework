@@ -1,88 +1,65 @@
-<!DOCTYPE html>
+<?php /* <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
-
-	<style type="text/css">
-
-	::selection{ background-color: #E13300; color: white; }
-	::moz-selection{ background-color: #E13300; color: white; }
-	::webkit-selection{ background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body{
-		margin: 0 15px 0 15px;
-	}
-	
-	p.footer{
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-	
-	#container{
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		-webkit-box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
+    <meta charset="utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>SCM</title>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Marvel' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Marvel|Delius+Unicase' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+<link href="<?php echo base_url()."/assets/css/style.css"; ?>" rel="stylesheet" type="text/css" media="screen" />
+<style>
+ .error {color:red;}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
 </head>
 <body>
+<div id="wrapper">
+    <div id="wrapper2">
+        <div id="header" class="container">
+            <div id="logo">
+                <h1><a href="#">student <span>component </span> manager</a></h1>
+            </div>
+            <?php if($page=='homepage'){ ?>
+            <div id="menu">
+                <ul>
+                    <li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
+					<li><a href="<?php echo site_url()."/authorization/login";?>">Login</a></li>
+					<li><a href="<?php echo site_url()."/registration/insertstudent";?>">Signup</a></li>
+					<li><a href="<?php echo site_url()."/about";?>">About</a></li>
+					<li><a href="<?php echo site_url()."/contact";?>">Contact</a></li>
+				</ul>
+			</div>
+			<?php } ?>
+		</div>
+		<div style='height:20px;'></div>  */ ?>
+    <div>
+<p><strong>Student Component Manager</strong> is a website where students can take up the online quizzes and classtests.They can also submit their assignments online. This website was created keeping in view to lessen the manual work of the professors,to lessen the time spent after checking the classtests,assignments,etc.</p><br>
+<p><strong>SCM</strong> also provides discussion forum for students and professors to discuss their study and general knowledge related problems.</p>
+ 
+ 
+    </div>
+<?php /*
+<!-- Beginning footer -->
+<div>
+<div style="clear: both;">&nbsp;</div>
+            </div>
+            <!-- end #content -->
+            <div style="clear: both;">&nbsp;</div>
+                
+                        <!-- end #page -->
+                        <div id="footer">
+                            <p>Copyright (c) 2012 Sitename.com. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            <!-- end #footer -->
+        </body>
+</html>*/ ?>
+<!-- End of Footer -->
 
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
-</div>
-
-</body>
-</html>

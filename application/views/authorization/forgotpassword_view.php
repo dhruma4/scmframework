@@ -1,7 +1,5 @@
- 
 <?php if($status=="" OR $status=="error"){ ?>
 <form action="" method="POST">
-
 	<h3 align="center"> <font color=#C16C2F>Find your account:</font></h3>
 	<table  align="center">
 		<tr>
@@ -13,7 +11,6 @@
 				<option value="faculty" <?php if($data_entered['role']=="faculty") echo 'selected'; ?>>Faculty</option>
 				<option value="student" <?php if($data_entered['role']=="student") echo 'selected'; ?>>Student</option>
 			</td>
-
 			<td><?php if(isset($errors['role'])){ ?>
       			<p><span class="error"><?php echo $errors['role'] ?></span></p>
             	<?php } ?>
@@ -60,7 +57,7 @@
 </form>
 <?php }?>
 <?php if($status=="send_email"){?>
-<p>Check your email for password reset.</p>
+<h4>Check your email for password reset.</h4>
 <?php }?>
 
 

@@ -1,8 +1,6 @@
-
-  <?php 
+<?php 
   if($status=="" OR $status=="error"){ ?>
-	   
-       <form action="" method="POST">
+	<form action="" method="POST">
         <table style="width:700px" align="center">
             <tr>
                 <td colspan=2 align="center"><h3>Upload the Quiz here:</h3></td>
@@ -52,14 +50,14 @@
             </tr>
         </table>
 
-	   </form>
+	</form>
 
    <script>
 $(document).ready(function(){
 
       $("#sem").change(function(){
 
-       //alert($(this).val());
+       
         $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_subject_bysem",
                 data:{
                       'semid':$('#sem').val()
@@ -70,9 +68,7 @@ $(document).ready(function(){
                 console.log(result);
                       
                         $("#subject").empty();
-                        //alert("The list is emptied");
                         
-
                         for(i in result){
                           var subject=result[i];
                           $("#subject").append('<option value="'+subject.sub_id+'"">'+subject.sub_name+'</option>')
@@ -94,5 +90,5 @@ $(document).ready(function(){
 <?php 
 if ($status=="success") {
 ?>
-<p>Test has been uploaded. </p>
+<h4>Test has been uploaded. </h4>
 <?php } ?>

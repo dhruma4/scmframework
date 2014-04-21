@@ -16,15 +16,11 @@ class Assignment_upload extends CI_Controller{
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
         }
+    }
  
-	}
- 
-	public function upload_assignment()
-	{
-         if ($this->logged_in==true)
-        {
+	public function upload_assignment(){
+    if ($this->logged_in==true){
         $status="";
-
         $assign_name=$this->input->post('assign_name');
         $faculty_name=$this->input->post('faculty_name');
         $sem=$this->input->post('sem');
@@ -39,43 +35,36 @@ class Assignment_upload extends CI_Controller{
         $prefilled['subject']=$subject;
         $prefilled['assign_deadline']=$assign_deadline;
     
-    	
-        if ($_SERVER["REQUEST_METHOD"]=="POST")
-        {
+        if ($_SERVER["REQUEST_METHOD"]=="POST"){
             $is_valid=true;
-            if(empty($_POST["assign_name"])) {
+            if(empty($_POST["assign_name"])){
                 $is_valid=false;
                 $arrayerror['assign_name'] = "Assignment name is required";
             }
-            
             if(empty($_POST["faculty_name"])){
                 $is_valid=false;
                 $arrayerror['faculty_name'] = "Faculty name is required";
             }
-        
             if(empty($_POST["sem"])){
                 $is_valid=false;
                 $arrayerror['sem'] = "Semester must be selected";
             }
-
-            if(empty($_POST["subject"])) {
+            if(empty($_POST["subject"])){
                 $is_valid=false;
                 $arrayerror['subject'] = "Subject name is required";
             }
-        
             if(empty($_POST["assign_deadline"])){
                 $is_valid=false;
                 $arrayerror['assign_deadline'] = "Last date for assignment submission is required";
             }
-        
             if($is_valid==true){
 
                 $data=array('assign_name'=>$prefilled['assign_name'],
             	  		   'fac_id'=>$prefilled['faculty_name'],
             	  		   'sub_id'=>$prefilled['subject'],
             	  		   'assign_submit_date'=>$prefilled['assign_deadline'],
-            	  		   'assign_flag'=>"y");
-
+            	  		   'assign_flag'=>"1"
+                        );
                 $this->assignmentupload_model->insert_assignment($data);
                 $status="uploaded";
             }
@@ -93,9 +82,7 @@ class Assignment_upload extends CI_Controller{
         $this->load->view('template/contentcss.php',$data);
         $this->load->view('assignment_upload/assignmentupload_view',$data);
         $this->load->view('template/footercss.php',$data);
-
-        
-        }else{
+    }   else{
                 $msg= "You are not logged in.You must be logged in to access the function.";
                 
                 $data['title']=$msg;
@@ -104,8 +91,7 @@ class Assignment_upload extends CI_Controller{
                 $this->load->view('template/headercss.php',$data);
                 $this->load->view('template/contentcss.php',$data);
                 $this->load->view('template/footercss.php',$data);
-            
-        }
+            }
     }
 }
 ?>

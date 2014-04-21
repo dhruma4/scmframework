@@ -15,9 +15,9 @@ class Testdisplay extends CI_Controller{
         if(isset($id) AND !empty($id)){
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
-        }
+        } 
     }
-
+ 
 	public function select_test(){
 	if($this->logged_in==true){
 		$status=""; 
@@ -35,26 +35,28 @@ class Testdisplay extends CI_Controller{
         $is_valid=true;
         $classtest_id=$this->input->get('id');
 
-        if(empty($classtest_id)) {
-        	$is_valid=false;
-            $arrayerror['test']="Class test must be selected";
-        } 
-        else {
+        if(!empty($classtest_id)) {
+        	//$is_valid=false;
         	$classtest=$this->classtestques_model->get_test($classtest_id);
         	if(count($classtest)<=0){
                 $is_valid=false;
                 $arrayerror['test']="No such test exists";
         	}
-        }
-
+        	else{
+        		$classtest=$this->classtestques_model->get_test($classtest_id);
+        		
+        		$data['test_fetched']=$classtest;
+        		$questions=$this->classtestques_model->get_questions($classtest_id);
+				if(count($questions)<=0){
+	                $arrayerror['question']="No questions are uploaded";
+	            }
+        	}
         if($is_valid==true) {
 			$status="test_answer";
-			
-
 			$questions=$this->classtestques_model->get_questions($classtest_id);
-			if(count($questions)<=0){
-                $arrayerror['question']="No questions are uploaded";
-            }
+				if(count($questions)<=0){
+	                $arrayerror['question']="No questions are uploaded";
+	            } 
             if ($_SERVER["REQUEST_METHOD"]=="POST"){   
 	            foreach($questions as $question){
 					$answer=$this->input->post('answer_'.$question['t_ques_id']);
@@ -71,20 +73,21 @@ class Testdisplay extends CI_Controller{
 						}
 					}
 				}          
-				 if($is_valid==true){
-							$id=$this->session->userdata('login_id');
+			 if($is_valid==true){
+				$id=$this->session->userdata('login_id');
 
-							$data=array('test_id'=>$this->input->get('id'),
-										'marks'=>$count,
-										'stu_id'=>$id,
-										);
-				
-							$this->classtestques_model->insertresult($data);
-							$status="submit";
-				}
+				$data=array('test_id'=>$this->input->get('id'),
+							'marks'=>$marks,
+							'stu_id'=>$id,
+							);
+	
+				$this->classtestques_model->insertresult($data);
+				$status="submit";
 			}
-					
+			}
 		}
+					
+		} 
 		$data['questions']=$questions;
 		$data['test_fetched']=$classtest;
 		$data['data_entered']=$prefilled;
@@ -93,7 +96,7 @@ class Testdisplay extends CI_Controller{
 		$data['status']=$status;
 		$data['logged_in_details']=$this->logged_in_details;
         $data['logged_in']=$this->logged_in;
-        $data['title']="Select test to answer";
+        $data['title']="";
 
 		$this->load->view('template/headercss.php',$data);
 		$this->load->view('template/contentcss.php',$data);

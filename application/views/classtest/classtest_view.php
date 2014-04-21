@@ -1,7 +1,5 @@
-
-  <?php 
-  if($status=="" OR $status=="error"){
-  ?>
+<?php 
+if($status=="" OR $status=="error"){?>
 	<form action="" method="POST">
         <table  align="center">
             <?php /*<tr>
@@ -52,14 +50,13 @@
                 <td colspan=2 align="center"><input type ="submit" value= "Submit"> </td>
             </tr>
         </table>
-
-	</form>
+    </form>
    <script>
 $(document).ready(function(){
 
       $("#sem").change(function(){
 
-       //alert($(this).val());
+       
         $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_subject_bysem",
                 data:{
                       'semid':$('#sem').val()
@@ -70,9 +67,7 @@ $(document).ready(function(){
                 console.log(result);
                       
                         $("#subject").empty();
-                        //alert("The list is emptied");
                         
-
                         for(i in result){
                           var subject=result[i];
                           $("#subject").append('<option value="'+subject.sub_id+'"">'+subject.sub_name+'</option>')

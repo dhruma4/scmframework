@@ -1,10 +1,7 @@
-
-  <?php 
-if($status=="" OR $status=="error"){
-  ?>
-	<form action="" method="POST">
-	 
-    <table style="width:600px" align="center">
+<?php 
+if($status=="" OR $status=="error"){?>
+<form action="" method="POST">
+    <table  align="center">
         <tr>
             <td colspan=2 align="center"><label><span class="error">'*' are required field.</span></label></td>
         </tr>
@@ -132,7 +129,7 @@ $(document).ready(function(){
 
       $("#state").change(function(){
 
-       //alert($(this).val());
+       
         $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_city",
                 data:{
                       'stateid':$('#state').val()
@@ -143,7 +140,7 @@ $(document).ready(function(){
                 console.log(result);
                       if(result.length>0){
                         $("#city").empty();
-                        //alert("The list is emptied");
+                        
                         }
 
                         for(i in result){
@@ -164,5 +161,5 @@ $(document).ready(function(){
 <?php 
 if ($status=="success") {
 ?>
-<h3 align="center"> Congratulations! You have registered successfully </h3>
+<h4 align="center"> Congratulations! You have registered successfully </h4>
 <?php } ?>

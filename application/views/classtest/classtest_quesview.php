@@ -1,29 +1,27 @@
-
 <?php 
-if($status=="" OR $status=="error"){
-?><form action="" method="POST">
-		<table align="center">
-			<tr>
-				<td><label><span class="error">'*' are required field.</span></label></td>
-			</tr>
-			<tr>
-				<td><label><span class="error">*</span>Select the Test:</label></td>
-				<td><select id="test" name="test" value="<?php echo $data_entered['test']?>">
-			    	<option value=""<?php if(empty($data_entered['test'])) echo 'selected';?>>Select your test</option>
-			      	<?php foreach ($tests as $test):?>
-			    	<option value="<?php echo $test['test_id']?>" <?php if($test['test_id']==$data_entered['test']) echo 'selected';?>><?php echo $test['test_name']?></option>
-			      	<?php endforeach ?>
-	  	  			</select>
-	  	  		</td>
-	  	  		<td><?php if(isset($errors['test'])){ ?>
-		    		<p><span class="error"><?php echo $errors['test'] ?></span></p>
-		    		<?php } }?>
-		    	</td>
-		    </tr>
-		</table>
+if($status=="" OR $status=="error"){ ?>
+<form action="" method="POST">
+	<table align="center">
+		<tr>
+			<td><label><span class="error">'*' are required field.</span></label></td>
+		</tr>
+		<tr>
+			<td><label><span class="error">*</span>Select the Test:</label></td>
+			<td><select id="test" name="test" value="<?php echo $data_entered['test']?>">
+		    	<option value=""<?php if(empty($data_entered['test'])) echo 'selected';?>>Select your test</option>
+		      	<?php foreach ($tests as $test):?>
+		    	<option value="<?php echo $test['test_id']?>" <?php if($test['test_id']==$data_entered['test']) echo 'selected';?>><?php echo $test['test_name']?></option>
+		      	<?php endforeach ?>
+  	  			</select>
+  	  		</td>
+  	  		<td><?php if(isset($errors['test'])){ ?>
+	    		<p><span class="error"><?php echo $errors['test'] ?></span></p>
+	    		<?php } }?>
+	    	</td>
+	    </tr>
+	</table>
 
-
-	<?php if($status=="ques_upload") { ?>
+<?php if($status=="ques_upload") { ?>
     <form action="" method="POST">
     	<table  align="center">
     		<tr>
@@ -137,11 +135,8 @@ if($status=="" OR $status=="error"){
 
 	<?php 
 if($status=="uploaded" AND $status!= "ques_upload"){ ?>
-<h3 align="center">Question have been uploaded.</h3>
-<form>
-          <input type="submit" value="Go back"  name="back" id="back">&nbsp
-          <input type="submit" value="Add another question"  name="add" id="add"> <br><br>
-  </form>
+<h4 align="center">Question have been uploaded.</h4>
+
 <?php } ?>
 
 

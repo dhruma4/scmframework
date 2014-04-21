@@ -36,9 +36,7 @@ class Welcome extends CI_Controller {
 				
 				$data['title']="";
 				$data['logged_in']=false;
-                //$data['logged_in_details']=$this->logged_in_details;
-                //$data['logged_in']=$this->logged_in;
-
+               
                 $this->load->view('template/headercss.php',$data);
                 $this->load->view('template/contentcss.php',$data);
                 $this->load->view('scm_common/about_view',$data);
@@ -49,9 +47,7 @@ class Welcome extends CI_Controller {
 	public function contact(){
 				$data['title']="";
 				$data['logged_in']=false;
-               // $data['logged_in_details']=$this->logged_in_details;
-                //$data['logged_in']=$this->logged_in;
-
+               
                 $this->load->view('template/headercss.php',$data);
                 $this->load->view('template/contentcss.php',$data);
                 $this->load->view('scm_common/contact_view',$data);

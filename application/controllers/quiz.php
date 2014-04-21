@@ -57,20 +57,20 @@ class Quiz extends CI_Controller{
                         $status="success";
                     }
 
-	         }
+	   }
 
-        $data['status']=$status;
-        $data['data_entered']=$prefilled;
-        $data['errors']=$arrayerror;
-        $data['subjects']=$this->quiz_model->get_subject();
-        $data['logged_in_details']=$this->logged_in_details;
-        $data['logged_in']=$this->logged_in;
-        $data['title']="Upload your quiz here";
+    $data['status']=$status;
+    $data['data_entered']=$prefilled;
+    $data['errors']=$arrayerror;
+    $data['subjects']=$this->quiz_model->get_subject();
+    $data['logged_in_details']=$this->logged_in_details;
+    $data['logged_in']=$this->logged_in;
+    $data['title']="Upload your quiz here";
 
-        $this->load->view('template/headercss.php',$data);
-        $this->load->view('template/contentcss.php',$data);
-        $this->load->view('quiz/quiz_view',$data);
-        $this->load->view('template/footercss.php',$data);
+    $this->load->view('template/headercss.php',$data);
+    $this->load->view('template/contentcss.php',$data);
+    $this->load->view('quiz/quiz_view',$data);
+    $this->load->view('template/footercss.php',$data);
         
     }
         else{

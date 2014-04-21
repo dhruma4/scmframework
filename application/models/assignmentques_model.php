@@ -21,7 +21,7 @@ class Assignmentques_model extends CI_Model
 		}
 
 		public function get_assign($assign_id){ 
-			$this->db->select('assign_id,assign_name');
+			$this->db->select('assign_id,assign_name,assign_submit_date');
 			$this->db->where('assign_id',$assign_id);
 			$query=$this->db->get('assignment_upload');
 
@@ -31,6 +31,14 @@ class Assignmentques_model extends CI_Model
 		public function get_questions($assign_id){
 			$this->db->select('assign_id,assign_ques_id,assign_ques_text');
 			$this->db->where('assign_id',$assign_id);
+			$query=$this->db->get('assignment_ques_master');
+
+			return $query->result_array();
+		}
+		public function get_stu_questions($assign_id){
+			$this->db->select('assign_id,assign_ques_id,assign_ques_text,assign_ques_flag');
+			$this->db->where('assign_id',$assign_id);
+			$this->db->where('assign_ques_flag',"1");
 			$query=$this->db->get('assignment_ques_master');
 
 			return $query->result_array();

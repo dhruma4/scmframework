@@ -17,9 +17,7 @@ class Classtest extends CI_Controller{
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
         }
-        //$this->load->library('calendar');
-        // echo $this->calendar->generate();
-	}
+    }
 
 	public function upload_test(){
     if($this->logged_in==true){
@@ -38,7 +36,6 @@ class Classtest extends CI_Controller{
         if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
             $is_valid=true;
-
             if(empty($_POST["test"])){
                 $is_valid=false;
                 $arrayerror['test']="Test name is required";
@@ -84,15 +81,15 @@ class Classtest extends CI_Controller{
         $this->load->view('classtest/classtest_view',$data);
         $this->load->view('template/footercss.php',$data);
     }
-    else{       $msg= "You are not logged in.You must be logged in to access the function.";
-                
-                $data['title']=$msg;
-                $data['logged_in_details']=$this->logged_in_details;
-                $data['logged_in']=$this->logged_in;
-                $this->load->view('template/headercss.php',$data);
-                $this->load->view('template/contentcss.php',$data);
-                $this->load->view('template/footercss.php',$data);
+    else{       
+        $msg= "You are not logged in.You must be logged in to access the function.";
 
+        $data['title']=$msg;
+        $data['logged_in_details']=$this->logged_in_details;
+        $data['logged_in']=$this->logged_in;
+        $this->load->view('template/headercss.php',$data);
+        $this->load->view('template/contentcss.php',$data);
+        $this->load->view('template/footercss.php',$data);
     }
   }
 

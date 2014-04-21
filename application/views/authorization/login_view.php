@@ -1,8 +1,7 @@
 
 <?php if($status=="" OR $status=="error") {?>
 <form action="" method="POST">
-    <table style="width:592px" align="center">
-        
+    <table align="center">
         <tr>
             <td><label><span class="error">* </span>Select your role:</label></td>
             <td><select name="role" id="role" value="<?php echo $data_entered['role']?>">

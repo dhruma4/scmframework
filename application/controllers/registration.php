@@ -16,11 +16,8 @@ class Registration extends CI_Controller{
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
         }
-      //$this->load->library('calendar');
-     // echo $this->calendar->generate(); 
-	}
-    public function insertstudent()
-    {   
+    }
+    public function insertstudent(){   
     
         $status="";
         $enroll=$this->input->post('enroll');
@@ -134,33 +131,31 @@ class Registration extends CI_Controller{
 
                     $loginid=$_POST["login_id"];
                     $resultlogin=$this->registration_model->get_usernameexists($loginid);
-                    //echo json_encode($resultlogin);
-
+                    
                     if(count($resultlogin) >0){
                         $is_valid=false;
                         $arrayerror['login_id']="Username already exists. Please choose another username";
                     }
                     
+                    
+                    if($is_valid==true){
+                                    $data=array('stu_enroll'=>$prefilled['enroll'],
+                                                'stu_name'=>$prefilled['name'],
+                                                'stu_sem'=>$prefilled['sem'],
+                                                'stu_branch'=>$prefilled['branch'],
+                                                'stu_dob'=>$prefilled['dob'],
+                                                'stu_add'=>$prefilled['address'],
+                                                'stu_city'=>$prefilled['city'],
+                                                'stu_state'=>$prefilled['state'],
+                                                'stu_contact'=>$prefilled['contact'],
+                                                'stu_email'=>$prefilled['email'],
+                                                'login_id'=>$prefilled['login_id']
+                                            );
 
-                        if($is_valid==true){
-                                        $data=array('stu_enroll'=>$prefilled['enroll'],
-                                                    'stu_name'=>$prefilled['name'],
-                                                    'stu_sem'=>$prefilled['sem'],
-                                                    'stu_branch'=>$prefilled['branch'],
-                                                    'stu_dob'=>$prefilled['dob'],
-                                                    'stu_add'=>$prefilled['address'],
-                                                    'stu_city'=>$prefilled['city'],
-                                                    'stu_state'=>$prefilled['state'],
-                                                    'stu_contact'=>$prefilled['contact'],
-                                                    'stu_email'=>$prefilled['email'],
-                                                    'login_id'=>$prefilled['login_id']
-                                                );
-
-                                        $this->registration_model->insertstudent($data);
-
-                                        $this->registration_model->set_username($_POST["login_id"]);
-                                        $status="success";
-                        }
+                                    $this->registration_model->insertstudent($data);
+                                    $this->registration_model->set_username($_POST["login_id"]);
+                                    $status="success";
+                    }
             }
         $data['status']=$status;
         $data['data_entered']=$prefilled;
@@ -179,6 +174,7 @@ class Registration extends CI_Controller{
         
     } 
     public function insertfaculty(){
+    if($this->logged_in==true){
 
         $status="";
         
@@ -207,101 +203,92 @@ class Registration extends CI_Controller{
 
         $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
         $name='/^[a-zA-Z ]*+[a-zA-Z]*$/'; 
-        if ($_SERVER["REQUEST_METHOD"]=="POST")
-        {
+        if ($_SERVER["REQUEST_METHOD"]=="POST"){
             $isvalid=true;
             $arraydatafac=array();
             if(empty($_POST["name"])){
                     $isvalid=false;
                     $arrayerrorfac['name'] = "Name is required";
             }
-                elseif(count($_POST["name"])>25){
+            elseif(count($_POST["name"])>25){
                       $isvalid=false;
                       $arraydatafac['name']="Name must not be more than 25 characters.";
-                }
-                elseif(!preg_match($name,$_POST['name'])){
+            }
+            elseif(!preg_match($name,$_POST['name'])){
                       $isvalid=false;
                       $arrayerrorfac['name']="Enter valid name without any special characters and digits.";
-                }
-            
+            }
             if(empty($_POST["branch"])){
                     $isvalid=false;
                     $arrayerrorfac['branch'] = "Branch is required";
             }
-            
             if(empty($_POST["designation"])){
                     $isvalid=false;
                     $arrayerrorfac['designation'] = "Designation is required";
             }
-            
             if(empty($_POST["address"])){
                     $isvalid=false;
                     $arrayerrorfac['address'] = "Address is required";
             }
-            
             if(empty($_POST["city"])){
                     $isvalid=false;
                     $arrayerrorfac['city'] = "City is required";
             }
-            
             if(empty($_POST["state"])){
                     $isvalid=false;
                     $arrayerrorfac['state'] = "State is required";
-            }    
-            
+            }
             if(empty($_POST["contact"])){
                 $isvalid=false;
                 $arrayerrorfac['contact'] = "Contact number is required";
             }
-                elseif(!preg_match("/^[0-9]{10}$/",$_POST["contact"])){
+            elseif(!preg_match("/^[0-9]{10}$/",$_POST["contact"])){
                     $isvalid=false;
                     $arraydatafac['contact']="Enter valid contact number of 10 digits without any special characters";
-                }
-
+            }
             if(empty($_POST["email"])){
                 $is_valid=false;
                 $arrayerrorfac['email']="Email is required";
             }
-                elseif(!preg_match($regex, $_POST["email"])){
+            elseif(!preg_match($regex, $_POST["email"])){
                     $is_valid=false;
                     $arrayerrorfac['email']="Email must be a valid email address";
-                }
-               
+            }
             if(empty($_POST["login_id"])){
                 $is_valid=false;
                 $arrayerrorfac['login_id']="Login id/Username is required";
             }
-                elseif(!preg_match("/^[0-9A-Za-z]{8}$/", $_POST["login_id"])){
-                    $is_valid=false;
-                    $arrayerrorfac['login_id']="Login id/Username must contain 8 characters including digits with no special character";
+            elseif(!preg_match("/^[0-9A-Za-z]{8}$/", $_POST["login_id"])){
+                $is_valid=false;
+                $arrayerrorfac['login_id']="Login id/Username must contain 8 characters including digits with no special character";
+            }
+
+                $loginid=$_POST["login_id"];
+                $resultlogin=$this->registration_model->get_usernameexists($loginid);
+                
+                if(count($resultlogin) >0)
+                {
+                $isvalid=false;
+                $arrayerrorfac['login_id']="Username already exists. Please choose another username";
                 }
-
-                    $loginid=$_POST["login_id"];
-                    $resultlogin=$this->registration_model->get_usernameexists($loginid);
                     
-                    if(count($resultlogin) >0)
-                    {
-                    $isvalid=false;
-                    $arrayerrorfac['login_id']="Username already exists. Please choose another username";
-                    }
-                    
-                    if($isvalid==true){
-                            $data=array('fac_name'=>$prefilled['name'],
-                                        'branch_id'=>$prefilled['branch'],
-                                        'fac_designation'=>$prefilled['designation'],
-                                        'fac_add'=>$prefilled['address'],
-                                        'fac_city'=>$prefilled['city'],
-                                        'fac_state'=>$prefilled['state'],
-                                        'fac_contact'=>$prefilled['contact'],
-                                        'fac_email'=>$prefilled['email'],
-                                        'login_id'=>$prefilled['login_id']);
+            if($isvalid==true){
+                    $data=array('fac_name'=>$prefilled['name'],
+                                'branch_id'=>$prefilled['branch'],
+                                'fac_designation'=>$prefilled['designation'],
+                                'fac_add'=>$prefilled['address'],
+                                'fac_city'=>$prefilled['city'],
+                                'fac_state'=>$prefilled['state'],
+                                'fac_contact'=>$prefilled['contact'],
+                                'fac_email'=>$prefilled['email'],
+                                'login_id'=>$prefilled['login_id']
+                            );
 
-                            $this->registration_model->insertfaculty($data);
-                            $this->registration_model->set_username($_POST["login_id"]);
-                            $status="success";
-                    }
+                    $this->registration_model->insertfaculty($data);
+                    $this->registration_model->set_username($_POST["login_id"]);
+                    $status="success";
+            }
         }
-
         $data['status']=$status;
         $data['data_entered']=$prefilled;
         $data['errors']=$arrayerrorfac;
@@ -318,7 +305,17 @@ class Registration extends CI_Controller{
         $this->load->view('registration/registrationfac_view',$data);
         $this->load->view('template/footercss.php',$data);
     }
-
+    else{
+                $msg= "You are not logged in.You must be logged in to access the function.";
+                
+                $data['title']=$msg;
+                $data['logged_in_details']=$this->logged_in_details;
+                $data['logged_in']=$this->logged_in;
+                $this->load->view('template/headercss.php',$data);
+                $this->load->view('template/contentcss.php',$data);
+                $this->load->view('template/footercss.php',$data);
+        }
+}
 	
 }
 ?>

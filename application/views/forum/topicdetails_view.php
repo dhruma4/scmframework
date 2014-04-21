@@ -1,7 +1,5 @@
-
 <form action="" method="POST">
 	<table align="center">
-		
 		<tr>
 			<td><h4 align="center"><label><?php  echo $topic_details[0]['disc_ques_topic'];?></label></td>
 		</tr>

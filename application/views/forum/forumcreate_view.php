@@ -1,8 +1,6 @@
-
 <?php if($status=="" OR $status=="error"){ ?>
 <form action="" method="POST">
     <table align="center" >
-        
         <tr>
             <td><label><span class="error">*</span>Topic:</label></td>
             <td><input style="width:350px" type="text" name="topic" value="<?php echo $data_entered['topic']?>" id="topic"></td>
@@ -29,6 +27,6 @@
 
 <?php if($status=="posted"){ ?>
 
-        <p>Your topic has been posted </p>
+        <h4>Your topic has been posted </h4>
    
 <?php } ?>

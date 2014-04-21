@@ -4,7 +4,7 @@ Design by Free CSS Templates
 http://www.freecsstemplates.org
 Released for free under a Creative Commons Attribution 2.5 License
 */
-
+  
 body {
 	margin: 0;
 	padding: 0;
@@ -170,38 +170,77 @@ a:hover {
 	padding: 0px;
 }
 
-#menu ul {
-	float: right;
-	margin: 0;
-	padding: 50px 20px 0px 0px;
-	list-style: none;
-	line-height: normal;
-}
+
 
 #menu li {
 	float: left;
-	padding: 0px 15px 0px 15px;
+	list-style:none;
+	padding: 0px 7px 0px 15px;
+	position:relative;
 }
+#menu li a{
+float:left;
+padding:0.75em 0.75em;
+text-decoration:none;
+color: #FFFFFF;
+font-weight:normal;
+font-size: 14px;
+font-family: 'Arvo', serif;
+display: block;
+height: 20px;
+margin-right: 0.25px;
+letter-spacing: 0.25px;
+text-align: center;
+text-transform: uppercase;
+border: none;
 
-#menu a {
-	display: block;
-	height: 20px;
-	margin-right: 1px;
-	letter-spacing: 1px;
+}
+#menu li a:hover{
+text-decoration:underline;
+display:block;
+}
+/*Submenu */
+.hasChildren{
+position: absolute;
+display:block;
+/*background-color: #C16C2F; */
+}
+#menu li ul{
+display:none;
+position:absolute;
+left:0;
+top:75%;
+padding:10px 0px 0px 0px; 
+margin:0;
+line-height: 12px;
+font-size: 10px;
+opacity: 100%;
+z-index: 5;
+}
+#menu li:hover>ul{
+display:block;
+}
+#menu li ul li,#menu li ul li a{
+float:left;
+display:compact;
+background-color: #C16C2F;
+opacity: 50%;
+
+}
+#menu li ul li{
+text-decoration:none;
+}
+#menu li ul li a{
+width:125px;
+display:block;
+}
+ #menu .current_page_item a {
 	text-decoration: none;
-	text-align: center;
-	text-transform: uppercase;
-	font-family: 'Arvo', serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #FFFFFF;
-	border: none;
 }
+/***********************************/
 
-#menu a:hover, #menu .current_page_item a {
-	text-decoration: none;
-}
 
+/***************************************************************************************/
 #menu .current_page_item a {
 }
 #menu .dropdown {

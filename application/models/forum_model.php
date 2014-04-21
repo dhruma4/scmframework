@@ -11,7 +11,7 @@ class Forum_model extends CI_Model
 	public function insert_topic($data){
 		$this->db->set('ask_id',"");
 		$this->db->insert('discussion_board_topic',$data);
-
+ 
 	} 
  	//topic display function
 	public function get_topics(){

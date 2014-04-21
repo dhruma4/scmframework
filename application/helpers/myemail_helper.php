@@ -20,7 +20,7 @@
 		$that->load->library('email',$config);
 		$that->email->set_newline("\r\n");
 
-		//$that->email->from('dhruma1234@gmail.com', 'Administrator');
+		$that->email->from('dhruma1234@gmail.com', 'Administrator');
 		$that->email->to($to); 
 		//$that->email->cc('another@another-example.com'); 
 		//$that->email->bcc('them@their-example.com'); 

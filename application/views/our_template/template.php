@@ -17,7 +17,7 @@
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
-  
+   
 <?php 
 foreach($css_files as $file): ?>
     <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
@@ -51,7 +51,7 @@ a:hover
         <div id="header" class="container">
             <div id="logo">
                 <h1><span> S &nbsp  C &nbsp M &nbsp</span></h1>
-            </div>
+            </div> 
             <div id="menu">
                 <ul>
                     <li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
@@ -98,7 +98,7 @@ a:hover
                 
                         <!-- end #page -->
                         <div id="footer">
-                            <p>Copyright (c) 2012 Sitename.com. All rights reserved.</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>

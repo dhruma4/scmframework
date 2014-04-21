@@ -1,29 +1,26 @@
-
 <?php if($status=="" OR $status=="error"){ ?>
-
-	<form action="" method="POST">
-        <table style="width:700px" align="center">
-            
-            <tr>
-                <td><label><span class="error">'*' are required field.</span></label></td>
-            </tr>
-            <tr>
-                <td><label><span class="error">*</span>Select the Quiz:</label></td>
-                <td><select id="quiz" name="quiz" value="<?php echo $data_entered['quiz']?>">
-                    <option value=""<?php if(empty($data_entered['quiz'])) echo 'selected';?>>Select your quiz</option>
-                    <?php foreach ($quizzes as $quiz):?>
-                    <option value="<?php echo $quiz['quiz_id']?>" <?php if($quiz['quiz_id']==$data_entered['quiz']) echo 'selected';?>><?php echo $quiz['quiz_name']?></option>
-                    <?php endforeach ?>
-                    </select>
-                </td>
-                <td><?php if(isset($errors['quiz'])){ ?>
-                    <p><span class="error"><?php echo $errors['quiz'] ?></span></p>
-                    <?php } }?>
-                </td>
-            </tr>
-        </table> 
+<form action="" method="POST">
+    <table align="center">
+        <tr>
+            <td><label><span class="error">'*' are required field.</span></label></td>
+        </tr>
+        <tr>
+            <td><label><span class="error">*</span>Select the Quiz:</label></td>
+            <td><select id="quiz" name="quiz" value="<?php echo $data_entered['quiz']?>">
+                <option value=""<?php if(empty($data_entered['quiz'])) echo 'selected';?>>Select your quiz</option>
+                <?php foreach ($quizzes as $quiz):?>
+                <option value="<?php echo $quiz['quiz_id']?>" <?php if($quiz['quiz_id']==$data_entered['quiz']) echo 'selected';?>><?php echo $quiz['quiz_name']?></option>
+                <?php endforeach ?>
+                </select>
+            </td>
+            <td><?php if(isset($errors['quiz'])){ ?>
+                <p><span class="error"><?php echo $errors['quiz'] ?></span></p>
+                <?php } }?>
+            </td>
+        </tr>
+    </table> 
       
-      <?php if($status=="ques_upload") { ?>
+<?php if($status=="ques_upload") { ?>
     <form action="" method="POST">
         <table align="center">
             <tr>
@@ -109,7 +106,7 @@
             </tr>
         </table>
     </form>
-    <?php } ?>
+<?php } ?>
 
     <script>
   $(document).ready(function(){

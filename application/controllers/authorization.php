@@ -19,14 +19,12 @@ class Authorization extends CI_Controller{
         }
 	}
  	public function demo(){
- 		
  		$data['title']="Welcome";
  		$this->load->view('template/headercss.php');
  		$this->load->view('template/contentcss.php',$data);
  		//$this->load->view('template/endpagecss.php');
  		$this->load->view('template/footercss.php');
-
- 	}
+	}
 
 	public function login(){
 		$status="";
@@ -50,31 +48,26 @@ class Authorization extends CI_Controller{
  	    $sess_username=$this->session->userdata('username');
     	$sess_role=$this->session->userdata('role');
 
-        if ($_SERVER["REQUEST_METHOD"]=="POST")
-        {
-         		if(isset($_POST['log_in']) AND !empty($_POST['log_in'])){
+        if ($_SERVER["REQUEST_METHOD"]=="POST"){
+     		if(isset($_POST['log_in']) AND !empty($_POST['log_in'])){
 				$is_valid=true;
 				
 				if(empty($role)){
 					$is_valid=false;
 					$arrayerror['role']="Role is required";
 				}
-
 				if(empty($username)){
 					$is_valid=false;
 					$arrayerror['username']="Username is required";
 				}
-
 				elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$username)){
 					$is_valid=false;
 					$arrayerror['username']="Login id/Username must contain 8 characters including digits with no special character";
 				}
-
 				if(empty($password)){
 					$is_valid=false;
 					$arrayerror['password']="Password is required";
 				}
-
 				elseif(!preg_match("/^[a-zA-Z0-9]{8}$/",$password)){
 					$is_valid=false;
 					$arrayerror['password']="Password must contain 8 characters including digits with no special character";
@@ -92,7 +85,6 @@ class Authorization extends CI_Controller{
 						}
 					}
 					elseif($role=="student"){
-						
 						$loginid=$_POST["username"];
 	                	$resultlogin=array();
 	                	$resultlogin= $this->auth_model->get_student_loginexists($loginid);
@@ -103,27 +95,24 @@ class Authorization extends CI_Controller{
 						}
 					}
 
-					if($is_valid==true){
-						$pass=md5(trim($password));
-						
-						$array=array('username'=>$username,
-									'password'=>$pass,
-									'role'=>$role);
-						$verify=$this->auth_model->verify_user($array);
-						
+				if($is_valid==true){
+					$pass=md5(trim($password));
+					$array=array('username'=>$username,
+								'password'=>$pass,
+								'role'=>$role
+							);
+					$verify=$this->auth_model->verify_user($array);
+					
 						if(count($verify)>0){
 							$unique=$this->auth_model->get_id($username,$role);
 							$unique_id=$unique[0]['login_id'];
-							
 							$sess=array('username'=>$username,
 											'role'=>$role,
-											'login_id'=>$unique_id);
+											'login_id'=>$unique_id
+										);
     						$this->session->set_userdata($sess);
     						
     						$this->logged_in_details=$this->session->all_userdata();
-    						
-
-
     						$this->logged_in=true;
     						
 							$security=$this->auth_model->security_check($username);
@@ -137,38 +126,36 @@ class Authorization extends CI_Controller{
 						}	else{
 									$arrayerror['password']="Username and/or password entered, doesnot match.Please try again";
 								}
-					}
+				}
 			}
 
 			if(isset($_POST['sec-ques-submit']) AND !empty($_POST['sec-ques-submit'])){
 					
-							$status="ask_security_ques";
-							$sec_questions=$this->auth_model->get_sec_questions();
-								
-								$is_valid=true;
-								if(empty($sec_ques)){
-									$is_valid=false;
-									$arrayerror['sec_ques']="Security question must be selected";
-								}
-								if(empty($sec_ans)){
-									$is_valid=false;
-									$arrayerror['sec_ans']="Security answer is required";
-								}
-
-								if($is_valid==true){
-									
-									$data=array('security_ques'=>$sec_ques,
-												'security_ans'=>$sec_ans);
-									
-									$this->auth_model->insert_sec_ques($sess_username,$data);
-									$status="sec_ques_inserted";
-									$this->session->unset_userdata();
-								}	else{
-											$arrayerror['password']="Username and/or password entered, doesnot match.Please try again";
-										}
+				$status="ask_security_ques";
+				$sec_questions=$this->auth_model->get_sec_questions();
+				$is_valid=true;
+				if(empty($sec_ques)){
+					$is_valid=false;
+					$arrayerror['sec_ques']="Security question must be selected";
 				}
-						
-			}
+				if(empty($sec_ans)){
+					$is_valid=false;
+					$arrayerror['sec_ans']="Security answer is required";
+				}
+
+				if($is_valid==true){
+					$data=array('security_ques'=>$sec_ques,
+								'security_ans'=>$sec_ans
+							);
+					
+					$this->auth_model->insert_sec_ques($sess_username,$data);
+					$status="sec_ques_inserted";
+					$this->session->unset_userdata();
+				}	else{
+							$arrayerror['password']="Username and/or password entered, doesnot match.Please try again";
+						}
+			}			
+		}
 		$data['logged_in_details']=$this->logged_in_details;
 		$data['logged_in']=$this->logged_in;
 		$data['questions']=$sec_questions;
@@ -180,9 +167,7 @@ class Authorization extends CI_Controller{
  		$this->load->view('template/headercss.php',$data);
  		$this->load->view('template/contentcss.php',$data);
  		$this->load->view('authorization/login_view',$data);
- 		
  		$this->load->view('template/footercss.php',$data);
-		
 	}
 
 	public function forgot_password(){
@@ -198,7 +183,6 @@ class Authorization extends CI_Controller{
 		$prefilled['role']=$role;
 		$prefilled['answer']=$answer;
 
-
 		$ques=array();
 		$questions=array();
 		$recipient=array();
@@ -207,21 +191,19 @@ class Authorization extends CI_Controller{
 		$sess_username = $this->session->userdata('username');
 		$sess_role = $this->session->userdata('role');
 
-		if($_SERVER["REQUEST_METHOD"]=="POST") {
+		if($_SERVER["REQUEST_METHOD"]=="POST"){
 			$status="";
 			
 			$data=array('username'=>$sess_username,
-						'role'=>$sess_role);
-			// echo '<pre/>';print_r($username);
-			// echo $username.':'.$role;die();
-
-	        if (empty($sess_username) OR empty($sess_role)) {
+						'role'=>$sess_role
+					);
+			
+	        if (empty($sess_username) OR empty($sess_role)){
 				$is_valid=true;
 				if(empty($role)){
 					$is_valid=false;
 					$arrayerror['role']="Role is required";
 				}
-
 				if(empty($username)){
 					$is_valid=false;
 					$arrayerror['username']="Username is required";
@@ -229,20 +211,17 @@ class Authorization extends CI_Controller{
 					$is_valid=false;
 					$arrayerror['username']="Login id/Username must contain 8 characters including digits with no special character";
 				}
-
 				if($role=="admin" OR $role=="branch moderator" OR $role=="faculty"){
-					
 					$loginid=$username;
 	                $resultlogin=array();
 	                $resultlogin= $this->auth_model->get_loginexists($loginid);
 
 	              	if(count($resultlogin)> 0){
-
 	              		$recipient=$this->auth_model->get_recipient($loginid);
-	              		
 	              		$to=$recipient[0]['fac_email'];
-
-					} else {
+					} 
+						
+					else{
 						$is_valid=false;
 						$arrayerror['username']="Username entered doesnot exists.Please enter correct username";
 						echo "";
@@ -257,26 +236,23 @@ class Authorization extends CI_Controller{
 
 						$recipient=$this->auth_model->get_recipient_student($loginid);
 						$to=$recipient[0]['stu_email'];
-              		} else {
-
-						$is_valid=false;
+              		} 	
+              		else{
+              			$is_valid=false;
 						$arrayerror['username']="Username entered doesnot exists.Please enter correct username";
 						echo "";
 					}
 				}
-
 				if($is_valid==true){
 					
 					$newdata=array('username'=>$username,
 									'role'=>$role
 								);
 					$this->session->set_userdata($newdata);
-					//echo "ques";
 					$status="security_question";
 					
 					$questions=$this->auth_model->fetch_ques($loginid);
 					$d['ques'] = $questions;
-					
 				}		
 			} else {
 				$active="else";
@@ -290,34 +266,28 @@ class Authorization extends CI_Controller{
 						$is_valid=false;
 						$arrayerror['answer']="Answer is required";
 					}
-
 					if($is_valid==true){
 						$ans=(trim($_POST["answer"]));
 						$array=array('security_ans'=>$ans,
 									'username'=>$username,
-									'role'=>$role);
+									'role'=>$role
+								);
 						
 						$verify=$this->auth_model->verify_ans($array);
 						if($sess_role=="student"){
 							$recipient=$this->auth_model->get_recipient_student($sess_username);
-							
 							$to=$recipient[0]['stu_email'];
-							
-	              		
-						}else
-						{
+						}
+						else{
 							$recipient=$this->auth_model->get_recipient($sess_username);
 							$to=$recipient[0]['fac_email'];
-							
 						}
-						
-						
 						if(count($verify)>0){
-							//echo "verified user";
-
 							$status="send_email";
 							$subject="Reset Password";
 							$time=time();
+							$called="password_reset";
+							$d['called']=$called;
 							
 							$hash=md5(trim($sess_username.$time));
 							$d['hash']=$hash;
@@ -332,12 +302,12 @@ class Authorization extends CI_Controller{
 							$this->session->unset_userdata('username');
 							$this->session->unset_userdata('role');
 							
-						} else{
+						} 
+						else{
 							$arrayerror['answer']="Answer entered, doesnot match.Please try again";
 						}
 					}
 				}
-	
 			}
 		}
 		
@@ -369,24 +339,18 @@ class Authorization extends CI_Controller{
 		if($_role=="student"){
 				$emailuser=$this->auth_model->fetch_email_student($_email);
 				$email=$emailuser[0]['stu_email'];
-			}	else{
-					$emailuser=$this->auth_model->fetch_email($_email);
-					$email=$emailuser[0]['fac_email'];
-				}	
-		
-		 
+			}	
+		else{
+			$emailuser=$this->auth_model->fetch_email($_email);
+			$email=$emailuser[0]['fac_email'];
+		} 
 		$hash=$this->auth_model->fetch_hash($_hash,$_role);
-		
 		
 		$arrayerror=array();
 		$prefilled=array();
 		
-		
 		if($_hash==$hash[0]['key'] AND $_email==$email){
-
-			
 			$user=$this->auth_model->fetch_username($_role,$email,$_hash);
-			
 			$username=$user[0]['username'];
 			$timesess=($user[0]['time_session'])+86400;
 			if($timesess >= time()){
@@ -396,7 +360,6 @@ class Authorization extends CI_Controller{
 				$prefilled['pass']=$pass;
 				$prefilled['confirm_pass']=$confirm_pass;
 				
-
 				if($_SERVER["REQUEST_METHOD"]=="POST") {
 					$is_valid=true;
 
@@ -415,7 +378,6 @@ class Authorization extends CI_Controller{
 						$is_valid=false;
 						$arrayerror['confirm_pass']="Passwords do not match.Please try again.";
 					}
-
 					if($is_valid==true){
 						
 						$password=md5(trim($pass));
@@ -423,10 +385,11 @@ class Authorization extends CI_Controller{
 						$this->auth_model->reset_pass($username,$_role,$data);
 						$status="password_reset";
 					}
-
 				}
 
-			}else{$msg= "The password reset link has expired.Please try again.";
+			}
+			else{
+				$msg= "The password reset link has expired.Please try again.";
                 
                 $data['title']=$msg;
                 $data['logged_in_details']=$this->logged_in_details;
@@ -446,7 +409,6 @@ class Authorization extends CI_Controller{
                 $this->load->view('template/headercss.php',$data);
                 $this->load->view('template/contentcss.php',$data);
                 $this->load->view('template/footercss.php',$data);
-				
 			}
 		$data['status']=$status;
 		$data['data_entered']=$prefilled;
@@ -462,10 +424,10 @@ class Authorization extends CI_Controller{
 	}
 	public function logout(){
 		if($this->logged_in==true){
-
-			$this->session->unset_userdata();
+ 			$this->session->unset_userdata();
 			redirect(site_url());
-		} else{
+		} 
+		else{
 			echo "you are not logged in";
 		}
 	}

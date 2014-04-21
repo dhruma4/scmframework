@@ -33,25 +33,26 @@ class Quizdisplay extends CI_Controller{
         $is_valid=true;
         $quiz_id=$this->input->get('id');
 
-	         if(empty($quiz_id)){
-	            $is_valid=false;
-	            $arrayerror['quiz']="Quiz must be selected";
-	        }
-
-	        else{
-	            $quiz=$this->quizques_model->get_quiz($quiz_id);
-
+	        if(!empty($quiz_id)){
+	         	$quiz=$this->quizques_model->get_quiz($quiz_id);
 	            if(count($quiz)<=0){
 	                $is_valid=false;
 	                $arrayerror['quiz']="No such quiz exists";
 	            }
-	         }
+	        
+	        else{
+	            $quiz=$this->quizques_model->get_quiz($quiz_id);
+	            $data['quiz_fetched']=$quiz;
+	            $questions=$this->quizques_model->get_questions($quiz_id); 
+	          	if(count($questions)<=0){
+	                $arrayerror['question']="No questions are uploaded";
+	            }
+	        }
 
-        if($is_valid==true) {
+        if($is_valid==true){ 
 			$status="quiz_answer";
-			$questions=$this->quizques_model->get_questions($quiz_id);
-
-          	if(count($questions)<=0){
+			$questions=$this->quizques_model->get_questions($quiz_id); 
+			if(count($questions)<=0){
                 $arrayerror['question']="No questions are uploaded";
             }
             if ($_SERVER["REQUEST_METHOD"]=="POST"){ 	
@@ -83,23 +84,22 @@ class Quizdisplay extends CI_Controller{
 							$status="submit";
 						}
 			}
-		}		
-		
-		
-			$data['questions']=$questions;
-			$data['quiz_fetched']=$quiz;
-			$data['data_entered']=$prefilled;
-			$data['quizzes']=$this->quizques_model->get_quizzes();
-			$data['errors']=$arrayerror;
-			$data['status']=$status;
-			$data['logged_in_details']=$this->logged_in_details;
-        	$data['logged_in']=$this->logged_in;
-        	$data['title']="";
+		}
+		}	
+		$data['questions']=$questions;
+		$data['quiz_fetched']=$quiz;
+		$data['data_entered']=$prefilled;
+		$data['quizzes']=$this->quizques_model->get_quizzes();
+		$data['errors']=$arrayerror;
+		$data['status']=$status;
+		$data['logged_in_details']=$this->logged_in_details;
+    	$data['logged_in']=$this->logged_in;
+    	$data['title']="";
 
-        	$this->load->view('template/headercss.php',$data);
-	        $this->load->view('template/contentcss.php',$data);
-	        $this->load->view('quiz/quizdisplay_view',$data);
-	        $this->load->view('template/footercss.php',$data);
+    	$this->load->view('template/headercss.php',$data);
+        $this->load->view('template/contentcss.php',$data);
+        $this->load->view('quiz/quizdisplay_view',$data);
+        $this->load->view('template/footercss.php',$data);
 			
 	}
 		else{

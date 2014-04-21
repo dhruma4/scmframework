@@ -30,8 +30,7 @@ class Forum extends CI_Controller{
     	$prefilled['topic']=$topic;
     	$prefilled['brief']=$brief;
     	
-    	if ($_SERVER["REQUEST_METHOD"]=="POST")
-        {
+    	if ($_SERVER["REQUEST_METHOD"]=="POST"){
         		$is_valid=true;
 				if(empty($topic)){
 					$is_valid=false;
@@ -74,8 +73,6 @@ class Forum extends CI_Controller{
                 $this->load->view('template/contentcss.php',$data);
                 $this->load->view('template/footercss.php',$data);
             }
-
-		
 	}
 	public function topic_list(){
 	if($this->logged_in==true){
@@ -102,8 +99,6 @@ class Forum extends CI_Controller{
                 $this->load->view('template/contentcss.php',$data);
                 $this->load->view('template/footercss.php',$data);
  			}
-		
-
 	}
 	public function topic_details(){
 	if($this->logged_in==true){
@@ -141,7 +136,6 @@ class Forum extends CI_Controller{
 					$this->forum_model->insert_comment($topic_id,$data);
 					$msg="Comment has been posted";
 				}
-
 			}
 		} 
 		$data['errors']=$arrayerror;

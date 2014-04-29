@@ -8,6 +8,12 @@ class Quiz extends CI_Controller{
         $this->load->model('quiz_model');
         $this->load->helper('url');
         $this->load->helper('form');
+        $this->load->library('session');
+        $id=$this->session->userdata('login_id');
+        if(isset($id) AND !empty($id)){
+            $this->logged_in=true;
+            $this->logged_in_details=$this->session->all_userdata();
+        }
 	}
 
 	public function upload_quiz(){

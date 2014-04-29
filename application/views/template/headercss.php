@@ -9,16 +9,19 @@
 <link href='http://fonts.googleapis.com/css?family=Marvel|Delius+Unicase' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 <link href="<?php echo base_url()."/assets/css/style.css"; ?>" rel="stylesheet" type="text/css" media="screen" />
-<link href="<?php echo base_url()."/assets/css/menustyle.css"; ?>" rel="stylesheet" type="text/css" media="screen" />
+<?php /* <link href="<?php echo base_url()."/assets/css/menustyle.css"; ?>" rel="stylesheet" type="text/css" media="screen" /> */ ?>
 <script type="text/javascript" src="<?php echo base_url()."/assets/js/jquery.js"; ?>"></script>
 <script type="text/javascript" src="<?php echo base_url()."/assets/js/menu.js"; ?>"></script>
-<script type="text/javascript" src="<?php echo base_url()."/assets/js/script.js"; ?>"></script>
+<script type="text/javascript" src="<?php echo base_url()."/assets/js/scripts.js"; ?>"></script>
 <style>
  .error {color:red;}
 </style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/jquery.effects.core.js" type="text/javascript"></script>
 
+</script>
+<script>
+var base_url="<?php echo base_url()?>"
 </script>
 </head> 
 <body>
@@ -50,10 +53,12 @@
 						</li>
 						<li><a href="#">Result</a>
 							<ul>
-								<li><a href="<?php echo site_url().;?>">Classtest</a></li>
-								<li><a href="<?php echo site_url().;?>">Quiz</a></li>
+								<li><a href="<?php echo site_url()."/student_view/view_classtest_result";?>">Classtest</a></li>
+								<li><a href="<?php echo site_url()."/student_view/view_quiz_result";?>">Quiz</a></li>
 							</ul>
 						</li>
+						
+						
 						<li><a href="<?php echo site_url()."/authorization/logout";?>">Logout</a></li>
 					</ul>
 			</div>
@@ -63,6 +68,7 @@
 					<li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
 					<li><a href="<?php echo site_url()."/manage/list_of_student";?>">Manage</a></li>
 					<li><a href="<?php echo site_url()."/registration/insertfaculty";?>">Add Faculty</a></li>
+					<li><a href="<?php echo site_url()."/faculty_subject/fac_sub_assign";?>">Assign Subject</a></li>
 					<li><a href="<?php echo site_url()."/authorization/logout";?>">Logout</a></li>
 				</ul>
 				
@@ -128,7 +134,7 @@
 					
 				
 				<?php } ?>
-				<?php } ?>
+		<?php } ?>
 				<?php if($logged_in==false) { ?>
 				<ul id="menu">
 					<li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>

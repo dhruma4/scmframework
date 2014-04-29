@@ -58,7 +58,7 @@ $(document).ready(function(){
       $("#sem").change(function(){
 
        
-        $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_subject_bysem",
+        $.ajax({url:base_url+"index.php/ajax/get_subject_bysem",
                 data:{
                       'semid':$('#sem').val()
                       },

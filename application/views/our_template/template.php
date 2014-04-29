@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+<meta charset="utf-8" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -32,12 +32,12 @@ foreach($css_files as $file): ?>
 body
 {
     font-family: Arial;
-    font-size: 14px;
+    font-size: 12px;
 }
 a {
     color: blue;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px;
 }
 a:hover
 {
@@ -57,39 +57,34 @@ a:hover
                     <li class="current_page_item"><a href="<?php echo site_url();?>">Homepage</a></li>
                     <li><a href='<?php echo site_url('manage/list_of_faculty')?>'>Faculty</a></li>
                     <li><a href='<?php echo site_url('manage/list_of_student')?>'>Student</a></li>
-                    <li><a href='<?php echo site_url('manage/list_of_assignment')?>'>Assignments</a></li>
-                    <li><a href='<?php echo site_url('manage/list_of_test')?>'>Tests</a></li>
-                    <li><a href='<?php echo site_url('manage/list_of_quiz')?>'>Quizess</a></li> 
-                    <li><a href='<?php echo site_url('manage/list_of_subject')?>'>Subjects</a></li> 
-                    <li><a href='<?php echo site_url('manage/quiz_result')?>'>Quiz results</a></li> 
-                    <li><a href='<?php echo site_url('manage/test_result')?>'>Classtest results</a></li>
+                    <li><a href='<?php echo site_url('manage/list_of_subject')?>'>Subjects</a></li>
+                    <li><a href="#">Components</a>
+                        <ul>
+                            <li><a href='<?php echo site_url('manage/list_of_assignment')?>'>Assignments</a></li>
+                            <li><a href='<?php echo site_url('manage/list_of_test')?>'>Tests</a></li>
+                            <li><a href='<?php echo site_url('manage/list_of_quiz')?>'>Quizess</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Results</a>
+                        <ul>
+                            <li><a href='<?php echo site_url('manage/quiz_result')?>'>Quiz results</a></li>
+                            <li><a href='<?php echo site_url('manage/test_result')?>'>Classtest results</a></li>
+                        </ul> 
+                    </li>
                     <li><a href='<?php echo site_url('manage/disc_topics');?>'>Discussion topics</a></li>
                     <li><a href='<?php echo site_url('manage/comments');?>'>Comments</a></li>
 
                 </ul>
             </div>
 <!-- Beginning header -->
-    
-
-        <?php /*<a href='<?php echo site_url('manage/list_of_faculty')?>'>Faculty</a> 
-        <a href='<?php echo site_url('manage/list_of_student')?>'>Student</a> 
-        <a href='<?php echo site_url('manage/list_of_assignment')?>'>Assignments</a> 
-        <a href='<?php echo site_url('manage/list_of_test')?>'>Tests</a> 
-        <a href='<?php echo site_url('manage/list_of_quiz')?>'>Quizess</a> 
-         <a href='<?php echo site_url('manage/list_of_subject')?>'>Subjects</a> 
-         <a href='<?php echo site_url('manage/quiz_result')?>'>Quiz results</a> 
-         <a href='<?php echo site_url('manage/test_result')?>'>Classtest results</a> */?>
-
- </div>
-    
+  </div>
 <!-- End of header-->
-    <div style='height:20px;'></div>  
-    <div>
+<div style='width:652px; padding:20px 500px;'>
         <?php echo $output; ?>
  
     </div>
-
-<!-- Beginning footer -->
+    <div style='height:20px;'></div>  
+ <!-- Beginning footer -->
 <div>
 <div style="clear: both;">&nbsp;</div>
             </div>
@@ -105,4 +100,4 @@ a:hover
             <!-- end #footer -->
         </body>
 </html>
-<!-- End of Footer -->
+

@@ -7,25 +7,11 @@ if($status=="" OR $status=="error"){?>
                 <td><input type="text" name="assign_name"></td>
             </tr>
             <tr>
-                <td><?php if(isset($errors['assign_name'])){ ?>
+                <td colspan=3><?php if(isset($errors['assign_name'])){ ?>
                     <p><span class="error"><?php echo $errors['assign_name'] ?></span></p>
                     <?php } ?>
                 </td>
-            </tr>
-            <tr>
-                <td><span class="error">*</span><label>Faculty name:</label></td>
-                <td><select name="faculty_name">
-                    <option value="">Select faculty</option>
-                    <?php foreach ($faculties as $faculty):?>
-                    <option value="<?php echo $faculty['fac_id']?>"><?php echo $faculty['fac_name']?></option>
-                    <?php endforeach ?>
-                    </select>
-                </td>
-                <td><?php if(isset($errors['faculty_name'])){ ?>
-                    <p><span class="error"><?php echo $errors['faculty_name'] ?></span></p>
-                    <?php } ?>
-                </td>
-            </tr>
+            </tr> 
             <tr>
                 <td><label><span class="error">* </span>Semester: </label></td>
                 <td><select name="sem" value="<?php echo $data_entered['sem']?>" id="sem">
@@ -56,6 +42,20 @@ if($status=="" OR $status=="error"){?>
                     <?php } ?>
                 </td>
             </tr>
+            <?php /*<tr> 
+                <td><span class="error">*</span><label>Faculty name:</label></td>
+                <td><select name="faculty_name" id="faculty_name">
+                    <option value="">Select faculty</option>
+                    <?php foreach ($faculties as $faculty):?>
+                    <option value="<?php echo $faculty['fac_id']?>"><?php echo $faculty['fac_name']?></option>
+                    <?php endforeach ?>
+                    </select> 
+                
+                <td><?php if(isset($errors['faculty_name'])){ ?>
+                    <p><span class="error"><?php echo $errors['faculty_name'] ?></span></p>
+                    <?php } ?>
+                </td>
+            </tr> */ ?>
             <tr>
                 <td><span class="error">*</span><label>Assignment deadline:</label></td>
                 <td><input type="date" name="assign_deadline"></td>
@@ -71,11 +71,12 @@ if($status=="" OR $status=="error"){?>
     </form>
 
    <script>
+//jQuery.noConflict();
 $(document).ready(function(){
 
       $("#sem").change(function(){
         
-        $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_subject_bysem",
+        $.ajax({url:base_url+"index.php/ajax/get_subject_bysem",
                 data:{
                       'semid':$('#sem').val()
                       },
@@ -90,15 +91,13 @@ $(document).ready(function(){
                           var subject=result[i];
                           $("#subject").append('<option value="'+subject.sub_id+'"">'+subject.sub_name+'</option>')
                         }
-    
                 },
                 error:function(data) {
                   console.log(data)
                 }
-
               });
       });
-  });
+  });//(jQuery);
 </script>
 
 <?php }?>
@@ -106,5 +105,10 @@ $(document).ready(function(){
 if ($status=="uploaded") {
 ?>
 <h4> Assignment uploaded. </h4>
+<?php } ?>
+<?php 
+if ($status=="not_verified") {
+?>
+<h4> You cannot upload assignment of this subject. </h4>
 <?php } ?>
 <?php } ?>

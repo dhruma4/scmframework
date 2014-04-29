@@ -114,7 +114,7 @@ $(document).ready(function(){
       $("#state").change(function(){
 
        
-        $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_city",
+        $.ajax({url:base_url+"index.php/ajax/get_city",
                 data:{
                       'stateid':$('#state').val()
                       },

@@ -12,10 +12,11 @@ class Assignment_upload extends CI_Controller{
         $this->load->library('session');
         $id=$this->session->userdata('login_id');
 
+
         if(isset($id) AND !empty($id)){
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
-        }
+        } 
     }
  
 	public function upload_assignment(){
@@ -34,17 +35,22 @@ class Assignment_upload extends CI_Controller{
         $prefilled['sem']=$sem;
         $prefilled['subject']=$subject;
         $prefilled['assign_deadline']=$assign_deadline;
-    
+
+        $role=$this->session->userdata('role');
+       
+        if($role=="faculty"){
+            $username=$this->session->userdata('username');
+            $faculty=$this->assignmentupload_model->get_faculty($username);
+            $faculty_logged=$faculty[0]['fac_id'];
+        }
+        
         if ($_SERVER["REQUEST_METHOD"]=="POST"){
             $is_valid=true;
             if(empty($_POST["assign_name"])){
                 $is_valid=false;
                 $arrayerror['assign_name'] = "Assignment name is required";
             }
-            if(empty($_POST["faculty_name"])){
-                $is_valid=false;
-                $arrayerror['faculty_name'] = "Faculty name is required";
-            }
+            
             if(empty($_POST["sem"])){
                 $is_valid=false;
                 $arrayerror['sem'] = "Semester must be selected";
@@ -52,29 +58,41 @@ class Assignment_upload extends CI_Controller{
             if(empty($_POST["subject"])){
                 $is_valid=false;
                 $arrayerror['subject'] = "Subject name is required";
+
             }
             if(empty($_POST["assign_deadline"])){
                 $is_valid=false;
                 $arrayerror['assign_deadline'] = "Last date for assignment submission is required";
             }
-            if($is_valid==true){
 
-                $data=array('assign_name'=>$prefilled['assign_name'],
-            	  		   'fac_id'=>$prefilled['faculty_name'],
-            	  		   'sub_id'=>$prefilled['subject'],
-            	  		   'assign_submit_date'=>$prefilled['assign_deadline'],
+
+            $assignid=$_POST["assign_name"];
+            $resultassign=$this->assignmentupload_model->get_assignmentexists($assignid,$faculty_name,$subject);
+            
+            if(count($resultassign) >0){
+                $is_valid=false;
+                $arrayerror['assign_name']="Assignment name already exists. Please choose another assignment name";
+            }
+
+            if($is_valid==true){
+            
+                $data=array('assign_name'=>$assign_name,
+            	  		   'fac_id'=>$faculty_logged,
+                           'sem'=>$sem,
+            	  		   'sub_id'=>$subject,
+            	  		   'assign_submit_date'=>$assign_deadline,
             	  		   'assign_flag'=>"1"
                         );
                 $this->assignmentupload_model->insert_assignment($data);
                 $status="uploaded";
             }
         }
+        
 		$data['errors']=$arrayerror;
         $data['status']=$status; 
         $data['data_entered']=$prefilled;
-        $data['faculties']=$this->assignmentupload_model->get_faculty();
-        $data['subjects']=$this->assignmentupload_model->get_subject();
-        $data['title']="Upload your assignment here";
+        $data['subjects']=$this->assignmentupload_model->get_subject($faculty_logged);
+        $data['title']="Upload your assignment here"; 
         $data['logged_in_details']=$this->logged_in_details;
         $data['logged_in']=$this->logged_in;
                 

@@ -121,7 +121,16 @@ class Authorization extends CI_Controller{
 									$status="ask_security_ques";
 									$sec_questions=$this->auth_model->get_sec_questions();
 								}	else{
-										$status="verified";
+									$status="verified";
+										if($role=="student"){
+											redirect('/student_view/view_assignment_ques');
+										} elseif($role=="admin"){
+											redirect('/manage/list_of_student');
+										} elseif($role=="faculty"){
+											redirect('/assignment_upload/upload_assignment');
+										}else{
+											redirect('/faculty_manage/list_of_assignments');
+										}
 									}
 						}	else{
 									$arrayerror['password']="Username and/or password entered, doesnot match.Please try again";
@@ -424,7 +433,8 @@ class Authorization extends CI_Controller{
 	}
 	public function logout(){
 		if($this->logged_in==true){
- 			$this->session->unset_userdata();
+			$this->session->sess_destroy();
+ 			// $this->session->unset_userdata();
 			redirect(site_url());
 		} 
 		else{

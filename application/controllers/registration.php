@@ -18,7 +18,7 @@ class Registration extends CI_Controller{
         }
     }
     public function insertstudent(){   
-    
+     
         $status="";
         $enroll=$this->input->post('enroll');
         $name=$this->input->post('name');

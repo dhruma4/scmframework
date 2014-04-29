@@ -2,7 +2,7 @@
 if($status=="" OR $status=="error"){?>
 <form action="" method="POST">
     <table  align="center">
-        <tr>
+        <tr> 
             <td colspan=2 align="center"><label><span class="error">'*' are required field.</span></label></td>
         </tr>
         <tr>
@@ -130,7 +130,7 @@ $(document).ready(function(){
       $("#state").change(function(){
 
        
-        $.ajax({url:"http://localhost/scmframework/index.php/ajax/get_city",
+        $.ajax({url:base_url+"index.php/ajax/get_city",
                 data:{
                       'stateid':$('#state').val()
                       },

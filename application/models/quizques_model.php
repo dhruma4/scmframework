@@ -40,15 +40,23 @@ class Quizques_model extends CI_Model
 
 		public function insertresult($data){
 			$this->db->insert('quiz_result',$data);
-		}
-		/*public function get_student(){
-			$this->db->select('');
-			$this->db->from('');
-			$this->db->join();
-			$this->db->where();
+		} // view result for student
+		public function get_quiz_result($quiz_id){
+			$this->db->select('r.stu_id,
+							r.quiz_id,
+							r.marks,
+							r.result_date,
+							q.quiz_id,
+							q.quiz_name,
+							q.quiz_flag');
+			$this->db->from('quiz_result as r');
+			$this->db->join('quiz_master as q',"r.quiz_id=q.quiz_id");
+			$this->db->where('r.quiz_id',$quiz_id);
+			$this->db->order_by('r.stu_id',"asc");
 			$query=$this->db->get();
 
 			return $query->result_array();
-		}*/
+
+		}
 	}
 ?> 

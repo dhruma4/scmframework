@@ -84,11 +84,12 @@ a:hover
  </div>
     
 <!-- End of header-->
-    <div style='height:20px;'></div>  
-    <div>
+<div style='width:652px; padding:20px 500px;'>
         <?php echo $output; ?>
  
     </div>
+    <div style='height:20px;'></div>  
+    
 
 <!-- Beginning footer -->
 <div>

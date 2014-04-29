@@ -23,7 +23,7 @@ if($status=="" OR $status=="error" AND $status!="submit" AND $status!="quiz_answ
 			</td>
 		</tr>
 	</table>
-</form>
+</form> 
 					
 <?php if($status=="quiz_answer") { ?>
     <form action="" method="POST">

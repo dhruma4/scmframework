@@ -16,7 +16,7 @@ class Testdisplay extends CI_Controller{
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
         } 
-    }
+    } 
  
 	public function select_test(){
 	if($this->logged_in==true){
@@ -36,7 +36,6 @@ class Testdisplay extends CI_Controller{
         $classtest_id=$this->input->get('id');
 
         if(!empty($classtest_id)) {
-        	//$is_valid=false;
         	$classtest=$this->classtestques_model->get_test($classtest_id);
         	if(count($classtest)<=0){
                 $is_valid=false;
@@ -48,9 +47,10 @@ class Testdisplay extends CI_Controller{
         		$data['test_fetched']=$classtest;
         		$questions=$this->classtestques_model->get_questions($classtest_id);
 				if(count($questions)<=0){
+					$is_valid=false;
 	                $arrayerror['question']="No questions are uploaded";
 	            }
-        	}
+        	} 
         if($is_valid==true) {
 			$status="test_answer";
 			$questions=$this->classtestques_model->get_questions($classtest_id);

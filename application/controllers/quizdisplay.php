@@ -15,7 +15,7 @@ class Quizdisplay extends CI_Controller{
             $this->logged_in=true;
             $this->logged_in_details=$this->session->all_userdata();
         }
-	 }
+	 } 
 
 	public function select_quiz(){
 	if($this->logged_in==true){

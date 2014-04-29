@@ -27,13 +27,18 @@ class Assignmentques extends CI_Controller{
         $questions=array();
         
         $assign=$this->input->post('assign');
+        $sem=$this->input->post('sem');
+        $subject=$this->input->post('subject');
 
         $prefilled=array();
-        $prefilled['assign']=$assign;
+        //$prefilled['assign']=$assign;
+        //$prefilled['sem']=$sem;
+        $prefilled['subject']=$subject;
       
         $is_valid=true;
         $assign_id=$this->input->get('id');
- 
+
+
         if(!empty($assign_id)){
             $assignment=$this->assignmentques_model->get_assign($assign_id);
             if(count($assignment)<=0){

@@ -70,7 +70,7 @@ class Assignment_submit extends CI_Controller{
                                     $files=array();
                                     $all_files=$this->assignmentsubmit_model->get_all_files($assign_name);
                                     $total_files=count($all_files);
-                                    echo $total_files;
+                                    //echo $total_files;
                                     for ($k=0;$k<$total_files;$k++){
                                         
                                         array_push($files,$all_files[$k]['assign_ans_path']);
